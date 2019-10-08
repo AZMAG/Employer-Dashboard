@@ -1056,7 +1056,7 @@ $(document).ready(function () {
 
                 var dataclustersfdi = GetDataGroupedByFields(data, ["Cluster"]);
                 dataclustersfdi.sort(function (a, b) {
-                    return b.Employees - a.Employees
+                    return b.EmployeesRAW - a.EmployeesRAW
                 });
 
                 var fdiclusterexcel = geoselected + "- FDI Employment by Clusters" + fdifiltertext;
@@ -1211,56 +1211,62 @@ $(document).ready(function () {
                 });
                 var keyind1 = GetDataGroupedByFields(data, ["Aerospace"]);
                 var Aerospace = keyind1.pop();
-                var AeroJobs = Aerospace.Employees * Aerospace.Aerospace;
+                var AeroJobs = Aerospace.EmployeesRAW * Aerospace.Aerospace;
 
                 var keyind2 = GetDataGroupedByFields(data, ["Finance"]);
                 var Finance = keyind2.pop();
-                var FinJobs = Finance.Employees * Finance.Finance;
+                var FinJobs = Finance.EmployeesRAW * Finance.Finance;
 
                 var keyind3 = GetDataGroupedByFields(data, ["HealthCare"]);
                 var Healthcare = keyind3.pop();
-                var HealthJobs = Healthcare.Employees * Healthcare.HealthCare;
+                var HealthJobs = Healthcare.EmployeesRAW * Healthcare.HealthCare;
 
                 var keyind4 = GetDataGroupedByFields(data, ["InfoTech"]);
                 var Infotech = keyind4.pop();
-                var InfoJobs = Infotech.Employees * Infotech.InfoTech;
+                var InfoJobs = Infotech.EmployeesRAW * Infotech.InfoTech;
 
                 var keyind5 = GetDataGroupedByFields(data, ["Manufacturing"]);
                 var Manufacturing = keyind5.pop();
-                var ManufJobs = Manufacturing.Employees * Manufacturing.Manufacturing;
+                var ManufJobs = Manufacturing.EmployeesRAW * Manufacturing.Manufacturing;
 
                 var keyind6 = GetDataGroupedByFields(data, ["WhseDistr"]);
                 var Whsedistr = keyind6.pop();
-                var WDJobs = Whsedistr.Employees * Whsedistr.WhseDistr;
+                var WDJobs = Whsedistr.EmployeesRAW * Whsedistr.WhseDistr;
 
                 var keyindustriesfdi = [{
                         "name": "Aerospace",
-                        "Jobs": AeroJobs,
+                        "JobsRAW": AeroJobs,
+                        "Jobs": Math.round(AeroJobs / 10) * 10,
                         "field": "Aerospace"
                     },
                     {
                         "name": "Finance",
-                        "Jobs": FinJobs,
+                        "JobsRAW": FinJobs,
+                        "Jobs": Math.round(FinJobs / 10) * 10,
                         "field": "Finance"
                     },
                     {
                         "name": "Health Care",
-                        "Jobs": HealthJobs,
+                        "JobsRAW": HealthJobs,
+                        "Jobs": Math.round(HealthJobs / 10) * 10,
                         "field": "HealthCare"
                     },
                     {
                         "name": "Information Technology",
-                        "Jobs": InfoJobs,
+                        "JobsRAW": InfoJobs,
+                        "Jobs": Math.round(InfoJobs / 10) * 10,
                         "field": "InfoTech"
                     },
                     {
                         "name": "Manufacturing",
-                        "Jobs": ManufJobs,
+                        "JobsRAW": ManufJobs,
+                        "Jobs": Math.round(ManufJobs / 10) * 10,
                         "field": "Manufacturing"
                     },
                     {
                         "name": "Warehouse and Distribution",
-                        "Jobs": WDJobs,
+                        "JobsRAW": WDJobs,
+                        "Jobs": Math.round(WDJobs / 10) * 10,
                         "field": "WhseDistr"
                     }
                 ];
@@ -1386,7 +1392,7 @@ $(document).ready(function () {
                     dataSource: {
                         data: keyindustriesfdi,
                         sort: {
-                            field: "Jobs",
+                            field: "JobsRAW",
                             dir: "desc"
                         }
                     },
@@ -1620,56 +1626,63 @@ $(document).ready(function () {
 
                 var keyind1 = GetDataGroupedByFields(data, ["Aerospace"]); //console.log(keyind1);
                 var Aerospace = keyind1.pop(); //console.log(Aerospace);
-                var AeroJobs = Aerospace.Employees * Aerospace.Aerospace;
+                var AeroJobs = Aerospace.EmployeesRAW * Aerospace.Aerospace;
+
 
                 var keyind2 = GetDataGroupedByFields(data, ["Finance"]); //console.log(keyind2);
                 var Finance = keyind2.pop(); //console.log(Finance);
-                var FinJobs = Finance.Employees * Finance.Finance;
+                var FinJobs = Finance.EmployeesRAW * Finance.Finance;
 
                 var keyind3 = GetDataGroupedByFields(data, ["HealthCare"]); //console.log(keyind3);
                 var Healthcare = keyind3.pop(); //console.log(Healthcare);
-                var HealthJobs = Healthcare.Employees * Healthcare.HealthCare;
+                var HealthJobs = Healthcare.EmployeesRAW * Healthcare.HealthCare;
 
                 var keyind4 = GetDataGroupedByFields(data, ["InfoTech"]); //console.log(keyind4);
                 var Infotech = keyind4.pop(); //console.log(Infotech);
-                var InfoJobs = Infotech.Employees * Infotech.InfoTech;
+                var InfoJobs = Infotech.EmployeesRAW * Infotech.InfoTech;
 
                 var keyind5 = GetDataGroupedByFields(data, ["Manufacturing"]); //console.log(keyind5);
                 var Manufacturing = keyind5.pop(); //console.log(Manufacturing);
-                var ManufJobs = Manufacturing.Employees * Manufacturing.Manufacturing;
+                var ManufJobs = Manufacturing.EmployeesRAW * Manufacturing.Manufacturing;
 
                 var keyind6 = GetDataGroupedByFields(data, ["WhseDistr"]); //console.log(keyind6);
                 var Whsedistr = keyind6.pop(); //console.log(Whsedistr);
-                var WDJobs = Whsedistr.Employees * Whsedistr.WhseDistr;
+                var WDJobs = Whsedistr.EmployeesRAW * Whsedistr.WhseDistr;
 
                 var keyindustries = [{
                         "name": "Aerospace",
-                        "Jobs": AeroJobs,
+                        "JobsRAW": AeroJobs,
+                        "Jobs": Math.round(AeroJobs / 10) * 10,
                         "field": "Aerospace"
                     },
                     {
                         "name": "Finance",
-                        "Jobs": FinJobs,
+                        "JobsRAW": FinJobs,
+                        "Jobs": Math.round(FinJobs / 10) * 10,
                         "field": "Finance"
                     },
                     {
                         "name": "Health Care",
-                        "Jobs": HealthJobs,
+                        "JobsRAW": HealthJobs,
+                        "Jobs": Math.round(HealthJobs / 10) * 10,
                         "field": "HealthCare"
                     },
                     {
                         "name": "Information Technology",
-                        "Jobs": InfoJobs,
+                        "JobsRAW": InfoJobs,
+                        "Jobs": Math.round(InfoJobs / 10) * 10,
                         "field": "InfoTech"
                     },
                     {
                         "name": "Manufacturing",
-                        "Jobs": ManufJobs,
+                        "JobsRAW": ManufJobs,
+                        "Jobs": Math.round(ManufJobs / 10) * 10,
                         "field": "Manufacturing"
                     },
                     {
                         "name": "Warehouse and Distribution",
-                        "Jobs": WDJobs,
+                        "JobsRAW": WDJobs,
+                        "Jobs": Math.round(WDJobs / 10) * 10,
                         "field": "WhseDistr"
                     }
                 ]; //console.log(keyindustries);
@@ -1809,7 +1822,7 @@ $(document).ready(function () {
                     dataSource: {
                         data: keyindustries,
                         sort: {
-                            field: "Jobs",
+                            field: "JobsRAW",
                             dir: "desc"
                         }
                     },
@@ -1880,7 +1893,7 @@ $(document).ready(function () {
 
                 var dataclusters = GetDataGroupedByFields(data, ["Cluster"]);
                 dataclusters.sort(function (a, b) {
-                    return b.Employees - a.Employees
+                    return b.EmployeesRAW - a.EmployeesRAW
                 }); //console.log(dataclusters);
 
                 function clickCluster(e) {
