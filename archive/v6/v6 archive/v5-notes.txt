@@ -1,0 +1,7 @@
+v5 NOTES
+
+re-formatted top20sharesection - cleaner
+rounding sum in groupedbyfields function (no rounding for groupedbyfieldsTotal function) - excel exports rounded
+added loading spinners on charts and grids
+	>> add to "Totals" sections at top of each tab?
+	- spinners load longer on grids even though data is already loaded...
