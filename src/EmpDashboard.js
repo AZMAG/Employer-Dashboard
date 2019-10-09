@@ -1488,7 +1488,7 @@ $(document).ready(function () {
 
                 var top20emp = allemp.slice(0, 20);
                 var sumtop20emp = top20emp.reduce(function (prev, cur) {
-                    return prev + cur.Employees;
+                    return prev + cur.EmployeesRAW;
                 }, 0);
 
                 var top20percent = sumtop20emp / sumallemp;
