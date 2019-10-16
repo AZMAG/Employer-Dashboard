@@ -201,20 +201,18 @@ $(document).ready(function () {
                     grid.collapseGroup(this);
                 });
 
-                $(".k-grouping-row").click(function () {
-                    console.log("hello");
-                    // $( ".k-grouping-row" ).each(function( index ) {
-                    //     grid.expandRow(this);
-                    //   });
-                });
+                // $(".k-grouping-row").click(function () {
+                //     // $( ".k-grouping-row" ).each(function( index ) {
+                //     //     grid.expandRow(this);
+                //     //   });
+                // });
             },
-            groupExpand: function (e) {
-                // for (let i = 0; i < e.group.items.length; i++){
-                //   var expanded = e.group.items[i].value
-                //   e.sender.expandGroup(".k-grouping-row:contains("+expanded+")");
-                // }
-                console.log("testing");
-            },
+            // groupExpand: function (e) {
+            //     // for (let i = 0; i < e.group.items.length; i++){
+            //     //   var expanded = e.group.items[i].value
+            //     //   e.sender.expandGroup(".k-grouping-row:contains("+expanded+")");
+            //     // }
+            // },
             columns: [{
                 field: "UltimateParentCountry",
                 sortable: false,
@@ -227,6 +225,7 @@ $(document).ready(function () {
                     style: "font-weight:bold;"
                 },
                 groupHeaderTemplate: "<strong>#=value #</strong>",
+                headerTemplate: "<span title='Parent Country'>Parent Country</span>"
             }, {
                 field: "UltimateParentName",
                 title: "Parent Companies",
@@ -235,11 +234,12 @@ $(document).ready(function () {
                 },
 
                 headerAttributes: {
-                    style: "font-weight:bold;"
+                    style: "font-weight:bold;",
                 },
                 groupHeaderTemplate: "#=value #",
                 aggregates: ["count"],
-                groupHeaderColumnTemplate: "<div style='text-align:right'><strong>#=kendo.toString(count,'n0') #</strong></div>"
+                groupHeaderColumnTemplate: "<div style='text-align:right'><strong>#=kendo.toString(count,'n0') #</strong></div>",
+                headerTemplate: "<span title='Parent Companies'>Parent Companies</span>"
             }, {
                 field: "Locations",
                 groupable: false, //prevent group by Employees
@@ -252,7 +252,8 @@ $(document).ready(function () {
                     style: "font-weight:bold;text-align:center;"
                 },
                 aggregates: ["sum"],
-                groupHeaderColumnTemplate: "<div style='text-align:right'><strong>#=kendo.toString(sum,'n0') #</strong></div>"
+                groupHeaderColumnTemplate: "<div style='text-align:right'><strong>#=kendo.toString(sum,'n0') #</strong></div>",
+                headerTemplate: "<span title='Locations'>Locations</span>"
             }, {
                 field: "EmployeesRAW",
                 groupable: false, //prevent group by Employees
@@ -266,10 +267,15 @@ $(document).ready(function () {
                     style: "font-weight:bold;text-align:center;"
                 },
                 aggregates: ["sum"],
-                groupHeaderColumnTemplate: "<div style='text-align:right'><strong>#=kendo.toString(sum,'n0') #</strong></div>"
+                groupHeaderColumnTemplate: "<div style='text-align:right'><strong>#=kendo.toString(Math.round(sum/10)*10,'n0') #</strong></div>",
+                headerTemplate: "<span title='Jobs'>Jobs</span>"
             }]
         });
     });
+
+    // $("#fullfdigrid").kendoTooltip({
+    //     filter: ".k-header span"
+    // });
 
     $('#expand').click(function (e) {
         var grid = $("#fullfdigrid").data("kendoGrid");

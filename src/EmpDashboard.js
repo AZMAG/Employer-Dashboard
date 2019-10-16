@@ -1,6 +1,6 @@
 var empUrl = "https://geo.azmag.gov/arcgis/rest/services/maps/StateEmploymentDashboard2018/MapServer/0";
 var indextest = 0;
-var GeographyList, dataclusters, datagrid20all, dsfdi, filenametest, totalBus;
+var GeographyList, dataclusters, datagrid20all, dsfdi, filenametest, totalBus, keyindnametest, clusternametest;
 var fdiChartHeight = 635;
 var toggleClick = 1;
 var toggleClickfdi = 1;
@@ -13,6 +13,8 @@ $(".filteredKI").html("");
 $(".filteredCluster").html("");
 $(".FDIcountry").html("");
 $(".filteredcategoryFDI").html("");
+
+$(".overhundredpct").hide();
 
 $(document).ready(function () {
     $("#tabstrip").kendoTabStrip({
@@ -233,7 +235,7 @@ $(document).ready(function () {
         if (indextest == "Overview") {
             GeographyList = GeographyListOverview;
             dropdown();
-        } else if (indextest == "Foreign Direct Investment") {
+        } else if (indextest == "Foreign-Owned Businesses") {
             GeographyList = GeographyListFDI;
             dropdown();
         } else if (indextest == "FDI Table") {
@@ -538,7 +540,7 @@ $(document).ready(function () {
 
                         var chart = $("#fdiChart").data("kendoChart");
                         for (i = 0; i < chart.options.series[0].data.length; i++) {
-                            chart.options.series[0].data[i].userColor = "#3866bf";
+                            chart.options.series[0].data[i].userColor = "lightgray"; //#3866bf
                         }
                         e.dataItem.userColor = "#2FC4CD";
                         chart.refresh();
@@ -574,7 +576,7 @@ $(document).ready(function () {
 
                         var chart = $("#fdiChart").data("kendoChart");
                         for (i = 0; i < chart.options.series[0].data.length; i++) {
-                            chart.options.series[0].data[i].userColor = "#3866bf";
+                            chart.options.series[0].data[i].userColor = "lightgray"; //3866bf
                         }
                         e.dataItem.userColor = "#2baab1";
                         chart.refresh();
@@ -675,6 +677,9 @@ $(document).ready(function () {
             toggleClickfdi = 1;
             $(".fdicountriesnumber").show();
             fdifiltertext = "";
+
+            $(".fdiclustersection").show();
+            $(".fdikeyindsection").show();
         });
 
         fdifilterquery = fdiquery;
@@ -727,7 +732,8 @@ $(document).ready(function () {
                         width: "25%",
                         headerAttributes: {
                             style: "font-weight:bold;"
-                        }
+                        },
+                        headerTemplate: "<span title='Parent Country'>Parent Country<a href='#testnotelink'>*</a></span>"
                     }, {
                         field: "Locations",
                         attributes: {
@@ -736,7 +742,8 @@ $(document).ready(function () {
                         template: "#=kendo.toString(Locations,'n0')#",
                         headerAttributes: {
                             style: "font-weight:bold;"
-                        }
+                        },
+                        headerTemplate: "<span title='Locations'>Locations</span>"
                     }, {
                         field: "Employees",
                         width: "13%",
@@ -887,7 +894,8 @@ $(document).ready(function () {
                         width: "25%",
                         headerAttributes: {
                             style: "font-weight:bold;"
-                        }
+                        },
+                        headerTemplate: "<span title='Parent Country'>Parent Country<a href='#testnotelink'>*</a></span>"
                     }, {
                         field: "Locations",
                         attributes: {
@@ -896,7 +904,8 @@ $(document).ready(function () {
                         template: "#=kendo.toString(Locations,'n0')#",
                         headerAttributes: {
                             style: "font-weight:bold;"
-                        }
+                        },
+                        headerTemplate: "<span title='Locations'>Locations</span>"
                     }, {
                         field: "Employees",
                         title: "Jobs",
@@ -1023,7 +1032,7 @@ $(document).ready(function () {
 
                 var chart = $("#clusterchartfdi").data("kendoChart");
                 for (i = 0; i < chart.options.series[0].data.length; i++) {
-                    chart.options.series[0].data[i].userColor = "#9bbb59";
+                    chart.options.series[0].data[i].userColor = "lightgray";
                 }
                 e.dataItem.userColor = "#2baab1";
                 chart.refresh();
@@ -1034,6 +1043,7 @@ $(document).ready(function () {
                 displayLoading("#keyindchartfdi");
 
                 $(".fdireset").show();
+                $(".fdikeyindsection").hide();
             } else {}
         }
 
@@ -1155,7 +1165,7 @@ $(document).ready(function () {
                         }
                     },
                     chartArea: {
-                        height: 600,
+                        height: 500,
                         margin: {
                             left: 75,
                             right: 75
@@ -1300,7 +1310,7 @@ $(document).ready(function () {
 
                         var chart = $("#keyindchartfdi").data("kendoChart");
                         for (i = 0; i < chart.options.series[0].data.length; i++) {
-                            chart.options.series[0].data[i].userColor = "#f79664";
+                            chart.options.series[0].data[i].userColor = "lightgray";
                         }
                         e.dataItem.userColor = "#2baab1";
                         chart.refresh();
@@ -1312,6 +1322,7 @@ $(document).ready(function () {
                         displayLoading("#clusterchartfdi");
 
                         $(".fdireset").show();
+                        $(".fdiclustersection").hide();
                     } else {}
                 }
 
@@ -1496,8 +1507,10 @@ $(document).ready(function () {
                 $(".top20percent").html(kendo.toString(top20percent * 100, 'n0'));
 
                 //top20grid section
+                testtop20data = GetDataGroupedByFields(data, ["EmpName"]);
                 datagrid20all = new kendo.data.DataSource({
-                    data: GetDataGroupedByFields(data, ["EmpName"]),
+                    // data: GetDataGroupedByFields(data, ["EmpName"]),
+                    data: testtop20data,
                     pageSize: 20,
                     sort: {
                         field: "EmployeesRAW",
@@ -1510,8 +1523,14 @@ $(document).ready(function () {
                 //dynamic grid title
                 if (totalBus < 20) {
                     $("#top20gridtitle").html("");
+                    $(".overhundredpct").show();
+                    $(".top20sharehide").hide();
+                    $(".top20sharenotavailable").show();
                 } else {
                     $("#top20gridtitle").html("Top 20");
+                    $(".overhundredpct").hide();
+                    $(".top20sharehide").show();
+                    $(".top20sharenotavailable").hide();
                 }
                 //dynamic grid height
                 if (totalBus == 1) {
@@ -1595,6 +1614,7 @@ $(document).ready(function () {
                         headerAttributes: {
                             style: "font-weight:bold;text-align:center;"
                         },
+                        headerTemplate: "<span title='Locations'>Locations</span>"
                     }, {
                         field: "Employees",
                         title: "Jobs",
@@ -1800,7 +1820,7 @@ $(document).ready(function () {
 
                         var chart = $("#keyindchart").data("kendoChart");
                         for (i = 0; i < chart.options.series[0].data.length; i++) {
-                            chart.options.series[0].data[i].userColor = "#f79664";
+                            chart.options.series[0].data[i].userColor = "lightgray"; //#f79664
                         }
                         e.dataItem.userColor = "#2baab1";
                         chart.refresh();
@@ -1823,6 +1843,7 @@ $(document).ready(function () {
                         displayLoading("#clusterchart");
 
                         $(".overviewreset").show();
+                        $(".clustersection").hide();
                     } else {}
                 }
 
@@ -1921,6 +1942,8 @@ $(document).ready(function () {
                         overviewfilterapplied = selectedcluster + " ";
                         top20overviewfilterapplied = " " + selectedcluster;
 
+                        $(".keyindsection").hide(); //TESTING HIDE
+
                         //apply the filters
                         $(".filteredCluster").html("Industry Cluster: " + e.category);
                         $(".filteredsimple").html(" " + e.category + " ");
@@ -1930,7 +1953,7 @@ $(document).ready(function () {
 
                         var chart = $("#clusterchart").data("kendoChart");
                         for (i = 0; i < chart.options.series[0].data.length; i++) {
-                            chart.options.series[0].data[i].userColor = "#9bbb59";
+                            chart.options.series[0].data[i].userColor = "lightgray"; //#9bbb59
                         }
                         e.dataItem.userColor = "#2baab1";
                         chart.refresh();
@@ -2008,7 +2031,6 @@ $(document).ready(function () {
                                 row.cells[cellIndex].format = "#,##"
                             }
                         }
-
                     },
                     dataSource: {
                         data: GetDataGroupedByFields(data, ["Cluster"]),
@@ -2052,7 +2074,7 @@ $(document).ready(function () {
                         }
                     },
                     chartArea: {
-                        height: 600,
+                        height: 500,
                         margin: {
                             left: 75,
                             right: 75
@@ -2117,6 +2139,9 @@ $(document).ready(function () {
             $(".filternoteCluster").show();
             overviewfilterapplied = "";
             top20overviewfilterapplied = "";
+
+            $(".clustersection").show();
+            $(".keyindsection").show();
         });
     };
     makedashboard(); //initial page load: Phoenix MSA

@@ -22,7 +22,7 @@
 
     <!-- JS -->
     <script src="http://kendo.cdn.telerik.com/2019.2.619/js/jszip.min.js"></script>
-    <!--required for excel export-->
+    <!--jszip required for excel export-->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="http://kendo.cdn.telerik.com/2019.2.619/js/kendo.all.min.js"></script>
     <!-- Esri Rest JS https://esri.github.io/arcgis-rest-js/api/ -->
@@ -33,7 +33,7 @@
 
 <body>
     <div class="main-header bgimg">
-        <h1 class="commexplorer text-center"><strong>DRAFT: Business, Jobs, and Industry Highlights in 2018</strong>
+        <h1 class="commexplorer text-center"><strong>Business, Jobs, and Industry Explorer</strong>
         </h1>
     </div>
     <p class="text-center"><strong>Note:</strong> This is a <strong>draft dashboard</strong> for testing.</p>
@@ -44,7 +44,7 @@
         <div id="tabstrip">
             <ul>
                 <li class="k-state-active">Overview</li>
-                <li>Foreign Direct Investment</li>
+                <li>Foreign-Owned Businesses</li>
                 <li>FDI Table</li>
             </ul>
 
@@ -76,23 +76,24 @@
                         <span class="totaltext nospaceunder">Jobs</span><br><em>at Locations with 5 or more
                             Employees</em>
                     </div>
+
                 </div>
+                <div id="totalsgrid"></div>
                 <hr>
                 <div class="row valign">
-                    <!-- <div class="col-md-1"></div> -->
-                    <div class="col-md-7">
+                    <div class="overhundredpct col-md-2"></div>
+                    <div class="col-md-8">
                         <div class="top20tablesection">
                             <h4 class="nospaceunder"><strong><span id="top20gridtitle">&nbsp;</span><span
-                                        class="filteredsimple">&nbsp;</span>Employers</strong> <span
-                                    class="dlicon top20ExcelExport"><i style="color:#2baab1;"
-                                        class="fas fa-file-excel fa-1.5x" title="Download data"></i></span></h4>
+                                        class="filteredsimple">&nbsp;</span>Employers</strong>
+                                <span class="dlicon top20ExcelExport"><i style="color:#2baab1;"
+                                        class="fas fa-file-excel fa-1.5x" title="Download data"></i></span>
+                            </h4>
                             <p class="nospaceabove"><em>by total jobs</em></p>
                         </div>
                         <div id="top20grid"></div>
                     </div>
-                    <!-- <div class="col-md-1"></div> -->
-                    <div class="col-md-4 top20sharesection text-left">
-                        <!-- <h4 class="nomarg incrsize">The <span class="highlightblue">Top 20</span><span class="filteredsimple">&nbsp;</span>employers account for</h4> -->
+                    <div class="col-md-4 top20sharehide top20sharesection text-left">
                         <span class="emphasize nomarg top20percent"></span><span class="percentstyle">%</span>
                         <p class="top20shareline">For <span class="addthe"></span><span
                                 class="selectedgeography"></span>, the <strong>Top 20 </strong></p>
@@ -100,42 +101,52 @@
                             the <strong>Top 20<span class="filteredsimple">&nbsp;</span>employers</strong> account for
                             <span class="top20percent"></span>% of all jobs<span class="inindustry"></span> within <span
                                 class="addthe">&nbsp;</span><span class="selectedgeographyFDI">&nbsp;</span>.</p>
-                        <!-- <h4 class="nomarg incrsize">of all<span class="filteredsimple">&nbsp;</span>jobs in <span class="addthe">&nbsp;</span><span class="selectedgeographyFDI">&nbsp;</span>.<br><br><i style="color:royalblue;" class="fas fa-city fa-3x"></i></h4> -->
                     </div>
-                    <div class="col-md-1"></div>
+                    <div class="col-md-1 top20sharehide"></div>
+                    <div class="overhundredpct col-md-2"></div>
                 </div>
+                <div class="top20sharenotavailable" style="display:none; margin-top:10px;"><em><small>Note: There are
+                            less than 20<span class='filteredsimple'>&nbsp;</span>employers in <span
+                                class='addthe'>&nbsp;</span><span
+                                class='selectedgeographyFDI'>&nbsp;</span>.</em></small></div>
                 <hr>
-                <h4 class="nomarg"><strong>Industry Clusters</strong> <span class="dlicon clusterExcelExport"><i
-                            style="color:#9bbb59;" class="fas fa-file-excel fa-1.5x" title="Download data"></i></span>
-                </h4>
-                <p>Industry classifications created by MAG, based on Census NAICS codes.</p>
-                <p><span class="filteredKI">
-                        <!--&nbsp;--></span></p>
-                <!-- <span class="filteredCluster">&nbsp;</span> -->
-                <p class="filternoteCluster"><em>Click on a bar to filter this page by an industry cluster.</em></p>
-                <button class="overviewreset">Clear <span class="overviewfiltertype">&nbsp;</span>Filter</button>
-                <div class="row">
-                    <div id="clusterchart"></div>
-                    <div id="clustergrid" style="display:none;"></div>
+                <div class="clustersection">
+                    <h4 class="nomarg"><strong>Industry Clusters</strong>
+                        <span class="dlicon clusterExcelExport"><i style="color:#2baab1;"
+                                class="fas fa-file-excel fa-1.5x" title="Download data"></i></span>
+                    </h4>
+                    <p>Industry classifications created by MAG, based on Census NAICS codes.</p>
+                    <p><span class="filteredKI">
+                            <!--&nbsp;--></span></p>
+                    <!-- <span class="filteredCluster">&nbsp;</span> -->
+                    <p class="filternoteCluster"><em>Click on a bar to filter this page by an industry cluster.</em></p>
+                    <button class="overviewreset">Clear <span class="overviewfiltertype">&nbsp;</span>Filter</button>
+                    <div class="row">
+                        <div id="clusterchart"></div>
+                        <div id="clustergrid" style="display:none;"></div>
+                    </div>
+                    <hr>
                 </div>
-                <!-- <p><small>Note: Industry classifications created by MAG, based on Census NAICS codes.</small></p> -->
-                <hr>
-                <h4 class="nomarg"><strong>Key Industries</strong> <span class="dlicon keyindExcelExport"><i
-                            style="color:#f79664;" class="fas fa-file-excel fa-1.5x" title="Download data"></i></span>
-                </h4>
-                <!-- <p class="nomarg"><span class="filteredKI">&nbsp;</span></p> -->
-                <p><span class="filteredCluster">
-                        <!--&nbsp;--></span></p>
-                <p class="keyindtextpadding">Key Industries are a vital component of Arizona’s economy. These six key
-                    industries contribute to economic growth throughout the region. Output from key industries is
-                    essential to the successful operation of many other industries.</p>
-                <p class="filternoteKI"><em>Click on a bar to filter this page by a key industry.</em></p>
-                <button class="overviewreset">Clear <span class="overviewfiltertype">&nbsp;</span>Filter</button>
-                <div class="row">
-                    <div id="keyindchart"></div>
-                    <div id="keyindgrid" style="display:none;"></div>
+                <div class="keyindsection">
+                    <h4 class="nomarg"><strong>Key Industries</strong>
+                        <span class="dlicon keyindExcelExport"><i style="color:#2baab1;"
+                                class="fas fa-file-excel fa-1.5x" title="Download data"></i></span>
+                    </h4>
+                    <!-- <p class="nomarg"><span class="filteredKI">&nbsp;</span></p> -->
+                    <p><span class="filteredCluster">
+                            <!--&nbsp;--></span></p>
+                    <p class="keyindtextpadding">Key Industries are a vital component of Arizona’s economy. These six
+                        key
+                        industries contribute to economic growth throughout the region. Output from key industries is
+                        essential to the successful operation of many other industries.</p>
+                    <p class="filternoteKI"><em>Click on a bar to filter this page by a key industry.</em></p>
+                    <button class="overviewreset">Clear <span class="overviewfiltertype">&nbsp;</span>Filter</button>
+                    <div class="row">
+                        <div id="keyindchart"></div>
+                        <div id="keyindgrid" style="display:none;"></div>
+                    </div>
+                    <hr>
                 </div>
-                <hr>
                 <p class="text-center"><small>Source: <span class="srcyr">&nbsp;</span> MAG Employer Database, business
                         locations with 5+ employees, all jobs 10+ rounded to nearest 10</small></p>
             </div>
@@ -153,7 +164,7 @@
                     <div class="fdicountriesnumber">
                         <h2 class="nomarg1"><i style="color:#2baab1;" class="fas fa-globe fa-1.5x"></i>
                             <strong><span id="totalFDICountries">&nbsp;</span></strong></h2>
-                        <span class="totaltext">Parent Countries</span>
+                        <span class="totaltext">Parent Countries<a href="#testnotelink">*</a></span>
                     </div>
                     <div class="row text-center">
                         <div class="col-xs-2"></div>
@@ -176,10 +187,12 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-6">
-                        <h4 class="nospaceunder"><strong><span id="fdicharttitle">&nbsp;</span></strong> <span
-                                class="dlicon fdicountriesExcelExport"><i style="color:#3866bf;"
-                                    class="fas fa-file-excel fa-1.5x" title="Download data"></i></span></h4><em>by total
-                            jobs</em>
+                        <h4 class="nospaceunder"><strong><span id="fdicharttitle">&nbsp;</span><a
+                                    href="#testnotelink">*</a></strong> <span class="dlicon fdicountriesExcelExport"><i
+                                    style="color:#2baab1;" class="fas fa-file-excel fa-1.5x"
+                                    title="Download data"></i></span></h4><em>by total
+                            jobs in <span class="addthe">&nbsp;</span><span
+                                class="selectedgeographyFDI">&nbsp;</span></em>
                         <p><strong><span class="filteredcategoryFDI filtercolor"></span></strong></p>
                         <div id="fdiChart"></div>
                         <div id="fdichartgrid" style="display:none;"></div>
@@ -190,9 +203,11 @@
                                         class="filteredsimplefdi filtercolor"></span> Employers</strong> <span
                                     class="dlicon fdiEmployersExcelExport"><i style="color:#2baab1;"
                                         class="fas fa-file-excel fa-1.5x" title="Download data"></i></span><br></h4>
-                            <em>by total jobs</em>
-                            <p class="nospaceabove"><strong><span class="FDIcountry">
-                                        <!--&nbsp;--></span></strong></p>
+                            <p class="nomarg"><strong><span class="FDIcountry"></span>
+                                    <!--&nbsp;--></span></strong></p>
+                            <p class="nospaceabove"><em>by total
+                                    jobs</em></p>
+
                             <div style="margin-left: 5%; margin-right: 5%; margin-bottom:10px; font-size: 13px;"
                                 id="fdiGridshow"></div>
                             <div id="fdiGrid" style="display:none;"></div>
@@ -201,39 +216,51 @@
                             <h4 class="nospaceunder"><strong>Top 5 <span class="filteredsimplefdi filtercolor"></span>
                                     Parent Companies</strong> <span class="dlicon fdiParentExcelExport"><i
                                         style="color:#2baab1;" class="fas fa-file-excel fa-1.5x"
-                                        title="Download data"></i></span><br></h4><em>by total jobs</em>
-                            <p class="nospaceabove"><strong><span class="FDIcountry">
-                                        <!--&nbsp;--></span></strong></p>
+                                        title="Download data"></i></span><br></h4>
+                            <p class="nomarg"><strong><span class="FDIcountry"></span>
+                                    <!--&nbsp;--></span></strong></p>
+                            <p class="nospaceabove"><em>by total
+                                    jobs</em></p>
                             <div style="margin-left: 5%; margin-right: 5%; font-size: 13px;" id="fdiparentGrid"></div>
                         </div>
                     </div>
                 </div>
                 <hr>
-                <button class="fdireset">Clear <span class="fdifiltertype">&nbsp;</span>Filter</button>
-                <h4 class="nospaceunder"><strong>Industry Clusters</strong> <span
-                        class="dlicon fdiclusterExcelExport"><i style="color:#9bbb59;" class="fas fa-file-excel fa-1.5x"
-                            title="Download data"></i></span></h4>
-                <p>Industry classifications created by MAG, based on Census NAICS codes.</p>
-                <p class="nospaceabove"><strong><span class="filteredcategoryFDI filtercolor">
-                            <!--&nbsp;--></span> <span class="FDIcountry">
-                            <!--&nbsp;--></span></strong></p>
-                <div id="clusterchartfdi"></div>
-                <div id="clustergridfdi" style="display:none;"></div>
-                <hr>
-                <h4 class="nospaceunder"><strong>Key Industries</strong> <span class="dlicon fdikeyindExcelExport"><i
-                            style="color:#f79664;" class="fas fa-file-excel fa-1.5x" title="Download data"></i></span>
-                </h4>
-                <p class="nospaceabove"><strong><span class="filteredcategoryFDI filtercolor">
-                            <!--&nbsp;--></span> <span class="FDIcountry">
-                            <!--&nbsp;--></span></strong></p>
-                <p class="keyindtextpadding">Key Industries are a vital component of Arizona’s economy. These six key
-                    industries
-                    contribute to economic growth throughout the region. Output from key industries is essential
-                    to the successful operation of many other industries.</p>
-                <div id="keyindchartfdi"></div>
-                <div id="keyindgridfdi" style="display:none;"></div>
-                <hr>
-                <p class="text-center spaceabove"><small>Note: "Parent Country" refers to the origin country of the
+                <div class="fdiclustersection">
+                    <button class="fdireset">Clear <span class="fdifiltertype">&nbsp;</span>Filter</button>
+                    <h4 class="nospaceunder"><strong>Industry Clusters</strong> <span
+                            class="dlicon fdiclusterExcelExport"><i style="color:#2baab1;"
+                                class="fas fa-file-excel fa-1.5x" title="Download data"></i></span></h4>
+                    <p class="nospaceabove"><strong><span class="filteredcategoryFDI filtercolor">
+                                <!--&nbsp;--></span> <span class="FDIcountry">
+                                <!--&nbsp;--></span></strong></p>
+                    <p>Industry classifications created by MAG, based on Census NAICS codes.</p>
+
+                    <div id="clusterchartfdi"></div>
+                    <div id="clustergridfdi" style="display:none;"></div>
+                    <hr>
+                </div>
+                <div class="fdikeyindsection">
+                    <button class="fdireset">Clear <span class="fdifiltertype">&nbsp;</span>Filter</button>
+
+                    <h4 class="nospaceunder"><strong>Key Industries</strong> <span
+                            class="dlicon fdikeyindExcelExport"><i style="color:#2baab1;"
+                                class="fas fa-file-excel fa-1.5x" title="Download data"></i></span>
+                    </h4>
+                    <p class="nospaceabove"><strong><span class="filteredcategoryFDI filtercolor">
+                                <!--&nbsp;--></span> <span class="FDIcountry">
+                                <!--&nbsp;--></span></strong></p>
+                    <p class="keyindtextpadding">Key Industries are a vital component of Arizona’s economy. These six
+                        key
+                        industries
+                        contribute to economic growth throughout the region. Output from key industries is essential
+                        to the successful operation of many other industries.</p>
+                    <div id="keyindchartfdi"></div>
+                    <div id="keyindgridfdi" style="display:none;"></div>
+                    <hr>
+                </div>
+                <p class="text-center spaceabove"><small><a name="testnotelink"></a>* Note: "Parent Country" refers to
+                        the origin country of the
                         foreign-owned employer's parent company.<br>Source: <span class="srcyr">&nbsp;</span> MAG
                         Employer Database, all jobs 10+ rounded to nearest 10</small></p>
             </div>
