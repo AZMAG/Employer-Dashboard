@@ -325,7 +325,7 @@ $(document).ready(function () {
                 $(".filternoteCluster").show();
                 $(".filternoteKI").show();
                 $(".filteredcategoryFDI").html("");
-                $(".filteredsimplefdi").html("");
+                $(".filteredsimplefdi").html(" ");
                 fdifiltertext = "";
                 toggleClick = 1;
                 toggleClickfdi = 1;
@@ -667,7 +667,7 @@ $(document).ready(function () {
             $(".fdireset").hide();
             $(".FDIcountry").html("");
             $(".filteredcategoryFDI").html("");
-            $(".filteredsimplefdi").html("");
+            $(".filteredsimplefdi").html(" ");
             fdifilterquery = fdiquery;
             makeFDIclusterchart();
             gridsEmpParent();
@@ -1028,7 +1028,7 @@ $(document).ready(function () {
 
                 //apply the filters
                 $(".filteredcategoryFDI").html("Industry Cluster: " + e.category);
-                $(".filteredsimplefdi").html(e.category);
+                $(".filteredsimplefdi").html(" " + e.category + " ");
 
                 var chart = $("#clusterchartfdi").data("kendoChart");
                 for (i = 0; i < chart.options.series[0].data.length; i++) {
@@ -1306,7 +1306,7 @@ $(document).ready(function () {
 
                         //apply the filters
                         $(".filteredcategoryFDI").html("Key Industry: " + e.category);
-                        $(".filteredsimplefdi").html(e.category);
+                        $(".filteredsimplefdi").html(" " + e.category + " ");
 
                         var chart = $("#keyindchartfdi").data("kendoChart");
                         for (i = 0; i < chart.options.series[0].data.length; i++) {
@@ -1814,7 +1814,7 @@ $(document).ready(function () {
                         //apply the filters
                         $(".filteredKI").html("Key Industry: " + e.category);
                         $(".filteredsimple").html(" " + e.category + " ");
-                        $(".inindustry").html(" in this industry");
+                        $(".inindustry").html(" in this industry ");
                         $(".within").html("within ");
                         $(".withinCluster").html("");
 
@@ -1947,7 +1947,7 @@ $(document).ready(function () {
                         //apply the filters
                         $(".filteredCluster").html("Industry Cluster: " + e.category);
                         $(".filteredsimple").html(" " + e.category + " ");
-                        $(".inindustry").html(" in this industry");
+                        $(".inindustry").html(" in this industry ");
                         $(".within").html("within the ");
                         $(".withinCluster").html(" Cluster");
 
