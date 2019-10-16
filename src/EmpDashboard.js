@@ -8,7 +8,10 @@ var overviewfilterapplied = "";
 var top20overviewfilterapplied = "";
 var fdifiltertext = "";
 
-$(".srcyr").html("2018");
+var sourceyear = 2018;
+var azsourceyear = "2017/2018";
+$(".srcyr").html(sourceyear);
+$(".fdisrcyr").html(sourceyear);
 $(".filteredKI").html("");
 $(".filteredCluster").html("");
 $(".FDIcountry").html("");
@@ -304,6 +307,13 @@ $(document).ready(function () {
                     $(".addthe").html("");
                 }
 
+                if (item == 'Arizona') {
+                    $(".fdisrcyr").html(azsourceyear);
+                } else {
+                    $(".fdisrcyr").html(sourceyear);
+
+                }
+
                 //spinner loading
                 displayLoading(".totaloverview");
                 displayLoading("#top20grid");
@@ -320,7 +330,7 @@ $(document).ready(function () {
                 $(".filteredKI").html("");
                 $(".filteredCluster").html("");
                 $(".filteredsimple").html("&nbsp;");
-                $(".inindustry").html("");
+                $(".inindustry").html(" ");
                 $(".overviewreset").hide();
                 $(".filternoteCluster").show();
                 $(".filternoteKI").show();
@@ -733,7 +743,7 @@ $(document).ready(function () {
                         headerAttributes: {
                             style: "font-weight:bold;"
                         },
-                        headerTemplate: "<span title='Parent Country'>Parent Country<a href='#testnotelink'>*</a></span>"
+                        headerTemplate: "<span title='Parent Country'>Parent Country<a href='#note'>*</a></span>"
                     }, {
                         field: "Locations",
                         attributes: {
@@ -895,7 +905,7 @@ $(document).ready(function () {
                         headerAttributes: {
                             style: "font-weight:bold;"
                         },
-                        headerTemplate: "<span title='Parent Country'>Parent Country<a href='#testnotelink'>*</a></span>"
+                        headerTemplate: "<span title='Parent Country'>Parent Country<a href='#note'>*</a></span>"
                     }, {
                         field: "Locations",
                         attributes: {
@@ -1535,7 +1545,7 @@ $(document).ready(function () {
                 //dynamic grid height
                 if (totalBus == 1) {
                     top20height = 3.5 + 32 + 32 * totalBus;
-                } else if (totalBus < 9) {
+                } else if (totalBus < 20) {
                     top20height = 32 + 32 * totalBus;
                 } else {
                     top20height = 300;
@@ -1598,7 +1608,7 @@ $(document).ready(function () {
                     columns: [{
                         field: "EmpName",
                         title: "Employer Name",
-                        width: "50%",
+                        width: "55%",
                         attributes: {
                             style: "text-align:left;"
                         },
@@ -2126,7 +2136,7 @@ $(document).ready(function () {
             $(".within").html("");
             $(".withinCluster").html("");
             $(".filteredsimple").html("&nbsp;");
-            $(".inindustry").html("");
+            $(".inindustry").html(" ");
 
             //reset data
             filterquery = overviewquery;
