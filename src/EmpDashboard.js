@@ -2209,6 +2209,13 @@ $(document).ready(function () {
     ];
 
     function exportTab() {
+
+        promises = [
+            $.Deferred(),
+            $.Deferred(),
+            $.Deferred()
+        ]
+
         // trigger export of grids
         $("#top20grid").data("kendoGrid").saveAsExcel();
         $("#clustergrid").data("kendoGrid").saveAsExcel();
