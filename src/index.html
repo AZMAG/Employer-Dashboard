@@ -36,7 +36,6 @@
         <h1 class="commexplorer text-center"><strong>Business, Jobs, and Industry Explorer</strong>
         </h1>
     </div>
-    <p class="text-center"><strong>Note:</strong> This is a <strong>draft dashboard</strong> for testing.</p>
     <div class="titlebox text-center">
         <span class="selectgeo">Select a Geography: </span><input id="geography" />
     </div>
@@ -45,7 +44,7 @@
             <ul>
                 <li class="k-state-active">Overview</li>
                 <li>Foreign-Owned Businesses</li>
-                <li>FDI Table</li>
+                <!-- <li>FDI Table</li> -->
             </ul>
 
             <div class="section-wrapper text-center">
@@ -71,7 +70,7 @@
                         <span class="totaltext nospaceunder">Employers</span> <br><em>with 5 or more Employees</em>
                     </div>
                     <div class="col-xs-4">
-                        <h2 class="nomarg1"><i style="color:#2baab1;" class="fas fa-user-tie fa-1.5x"></i>
+                        <h2 class="nomarg1"><i style="color:#2baab1;" class="fas fa-users fa-1.5x"></i>
                             <strong><span id="totaljobs">&nbsp;</span></strong></h2>
                         <span class="totaltext nospaceunder">Jobs</span><br><em>at Locations with 5 or more
                             Employees</em>
@@ -173,7 +172,7 @@
                             <span class="totaltext">Employers</span>
                         </div>
                         <div class="col-xs-4">
-                            <h2 class="nomarg1"><i style="color:#2baab1;" class="fas fa-user-tie fa-1.5x"></i>
+                            <h2 class="nomarg1"><i style="color:#2baab1;" class="fas fa-users fa-1.5x"></i>
                                 <strong><span id="totaljobsfdi">&nbsp;</span></strong></h2>
                             <span class="totaltext">Jobs</span>
                         </div>
@@ -261,10 +260,9 @@
                         foreign-owned employer's parent company.<br>Source: <span class="fdisrcyr">&nbsp;</span> MAG
                         Employer Database, all jobs 10+ rounded to nearest 10</small></p>
             </div>
-            <div class="section-wrapper">
+            <!-- <div class="section-wrapper">
                 <button class="text-left k-button" id="expand">Expand All Countries</button>
                 <button class="fdicollapse k-button" id="collapse">Collapse All (Reset Table)</button>
-                <!-- <h4 class="text-center"><strong>All FDI Employers for <span class="addthe">&nbsp;</span><span class="selectedgeographyFDI">&nbsp;</span></strong></h4> -->
                 <h2 class="text-center"><strong>All FDI Employers for the Phoenix MSA</strong></h2>
                 <p class="text-center"><strong>Tip: </strong>Click on arrows to open more details on Parent Companies
                     and Employers. Click on column headers to sort by that field.</p>
@@ -272,12 +270,12 @@
                 <p class="text-center spaceabove"><small>Note: "Parent Country" refers to the origin country of the
                         foreign-owned employer's parent company.<br>Source: <span class="srcyr">&nbsp;</span> MAG
                         Employer Database, all jobs 10+ rounded to nearest 10</small></p>
-            </div>
+            </div> -->
         </div>
     </div>
     <!-- Custom JS -->
     <script defer src="EmpDashboard.js"></script>
-    <script defer src="FDI-table.js"></script>
+    <!-- <script defer src="FDI-table.js"></script> -->
 </body>
 
 </html>
