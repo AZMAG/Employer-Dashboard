@@ -1592,6 +1592,8 @@ $(document).ready(function () {
                                 row.cells[cellIndex].format = "#,##"
                             }
                         }
+                        e.preventDefault();
+                        promises[0].resolve(e.workbook);
                     },
                     height: top20height,
                     dataSource: datagrid20all,
@@ -1791,6 +1793,8 @@ $(document).ready(function () {
                                 row.cells[cellIndex].format = "#,##"
                             }
                         }
+                        e.preventDefault();
+                        promises[2].resolve(e.workbook);
                     },
                 });
 
@@ -2031,6 +2035,9 @@ $(document).ready(function () {
                                 row.cells[cellIndex].format = "#,##"
                             }
                         }
+                        e.preventDefault();
+                        promises[1].resolve(e.workbook);
+
                     },
                     dataSource: {
                         data: GetDataGroupedByFields(data, ["Cluster"]),
@@ -2147,23 +2154,23 @@ $(document).ready(function () {
     makedashboard(); //initial page load: Phoenix MSA
 
     //Export Buttons
-    $(".top20ExcelExport").kendoButton({
-        click: function () {
-            $("#top20grid").getKendoGrid().saveAsExcel();
-        }
-    });
+    // $(".top20ExcelExport").kendoButton({
+    //     click: function () {
+    //         $("#top20grid").getKendoGrid().saveAsExcel();
+    //     }
+    // });
 
-    $(".clusterExcelExport").kendoButton({
-        click: function () {
-            $("#clustergrid").getKendoGrid().saveAsExcel();
-        }
-    });
+    // $(".clusterExcelExport").kendoButton({
+    //     click: function () {
+    //         $("#clustergrid").getKendoGrid().saveAsExcel();
+    //     }
+    // });
 
-    $(".keyindExcelExport").kendoButton({
-        click: function () {
-            $("#keyindgrid").getKendoGrid().saveAsExcel();
-        }
-    });
+    // $(".keyindExcelExport").kendoButton({
+    //     click: function () {
+    //         $("#keyindgrid").getKendoGrid().saveAsExcel();
+    //     }
+    // });
 
     $(".fdicountriesExcelExport").kendoButton({
         click: function () {
@@ -2194,5 +2201,45 @@ $(document).ready(function () {
             $("#fdiparentGrid").getKendoGrid().saveAsExcel();
         }
     });
+
+    var promises = [
+        $.Deferred(),
+        $.Deferred(),
+        $.Deferred()
+    ];
+
+    function exportTab() {
+        // trigger export of grids
+        $("#top20grid").data("kendoGrid").saveAsExcel();
+        $("#clustergrid").data("kendoGrid").saveAsExcel();
+        $("#keyindgrid").data("kendoGrid").saveAsExcel();
+        // wait for exports to finish
+        $.when.apply(null, promises)
+            .then(function (top20Workbook, clustersWorkbook, keyindWorkbook) {
+
+                // create a new workbook using the sheets 
+                var sheets = [
+                    top20Workbook.sheets[0],
+                    clustersWorkbook.sheets[0],
+                    keyindWorkbook.sheets[0]
+                ];
+
+                sheets[0].title = "Top 20 Employers";
+                sheets[1].title = "Industry Clusters";
+                sheets[2].title = "Key Industries";
+
+                var workbook = new kendo.ooxml.Workbook({
+                    sheets: sheets
+                });
+
+                // save the new workbook
+                kendo.saveAs({
+                    dataURI: workbook.toDataURL(),
+                    fileName: geoselected + "_Business_Jobs_Industry_Overview" + ".xlsx"
+                })
+            })
+    }
+
+    $(".overviewExcelExport").on('click', exportTab);
 
 });
