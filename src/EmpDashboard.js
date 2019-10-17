@@ -7,6 +7,7 @@ var toggleClickfdi = 1;
 var overviewfilterapplied = "";
 var top20overviewfilterapplied = "";
 var fdifiltertext = "";
+var filterclicked = 0;
 
 var sourceyear = 2018;
 var azsourceyear = "2017/2018";
@@ -1602,6 +1603,8 @@ $(document).ready(function () {
                                 row.cells[cellIndex].format = "#,##"
                             }
                         }
+                        e.preventDefault();
+                        promises[0].resolve(e.workbook);
                     },
                     height: top20height,
                     dataSource: datagrid20all,
@@ -1801,11 +1804,20 @@ $(document).ready(function () {
                                 row.cells[cellIndex].format = "#,##"
                             }
                         }
+                        e.preventDefault();
+                        if (filterclicked == 0) {
+                            promises[2].resolve(e.workbook);
+                        } else if (filterclicked == 2) {
+                            promises[1].resolve(e.workbook);
+
+                        }
                     },
                 });
 
                 function clickKI(e) {
                     if (toggleClick == 1 || toggleClick == 3) {
+                        filterclicked = 2;
+                        console.log(filterclicked);
                         $(".filternoteCluster").hide();
                         $(".overviewfiltertype").html("Key Industry ")
                         toggleClick = 3;
@@ -1938,6 +1950,8 @@ $(document).ready(function () {
 
                 function clickCluster(e) {
                     if (toggleClick == 1 || toggleClick == 2) {
+                        filterclicked = 1;
+                        console.log(filterclicked);
                         $(".filternoteKI").hide();
                         $(".overviewfiltertype").html("Cluster ")
                         //filter calculate totals - add cluster filter
@@ -2041,6 +2055,9 @@ $(document).ready(function () {
                                 row.cells[cellIndex].format = "#,##"
                             }
                         }
+                        e.preventDefault();
+                        promises[1].resolve(e.workbook);
+
                     },
                     dataSource: {
                         data: GetDataGroupedByFields(data, ["Cluster"]),
@@ -2124,6 +2141,9 @@ $(document).ready(function () {
         calculateClusters();
 
         $(".overviewreset").click(function () {
+            filterclicked = 0;
+            console.log(filterclicked);
+
             //spinner loading
             displayLoading(".top20sharesection");
             displayLoading("#top20grid");
@@ -2157,23 +2177,23 @@ $(document).ready(function () {
     makedashboard(); //initial page load: Phoenix MSA
 
     //Export Buttons
-    $(".top20ExcelExport").kendoButton({
-        click: function () {
-            $("#top20grid").getKendoGrid().saveAsExcel();
-        }
-    });
+    // $(".top20ExcelExport").kendoButton({
+    //     click: function () {
+    //         $("#top20grid").getKendoGrid().saveAsExcel();
+    //     }
+    // });
 
-    $(".clusterExcelExport").kendoButton({
-        click: function () {
-            $("#clustergrid").getKendoGrid().saveAsExcel();
-        }
-    });
+    // $(".clusterExcelExport").kendoButton({
+    //     click: function () {
+    //         $("#clustergrid").getKendoGrid().saveAsExcel();
+    //     }
+    // });
 
-    $(".keyindExcelExport").kendoButton({
-        click: function () {
-            $("#keyindgrid").getKendoGrid().saveAsExcel();
-        }
-    });
+    // $(".keyindExcelExport").kendoButton({
+    //     click: function () {
+    //         $("#keyindgrid").getKendoGrid().saveAsExcel();
+    //     }
+    // });
 
     $(".fdicountriesExcelExport").kendoButton({
         click: function () {
@@ -2205,4 +2225,85 @@ $(document).ready(function () {
         }
     });
 
+    var promises = [$.Deferred(), $.Deferred(), $.Deferred()];
+
+    function exportTab() {
+        if (filterclicked == 1) {
+            promises = [$.Deferred(), $.Deferred()];
+            // trigger export of grids
+            $("#top20grid").data("kendoGrid").saveAsExcel();
+            $("#clustergrid").data("kendoGrid").saveAsExcel();
+            // wait for exports to finish
+            $.when.apply(null, promises)
+                .then(function (top20Workbook, clustersWorkbook) {
+                    // create a new workbook using the sheets 
+                    var sheets = [
+                        top20Workbook.sheets[0],
+                        clustersWorkbook.sheets[0],
+                    ];
+                    sheets[0].title = "Top 20 Employers";
+                    sheets[1].title = "Industry Clusters";
+                    var workbook = new kendo.ooxml.Workbook({
+                        sheets: sheets
+                    });
+                    // save the new workbook
+                    kendo.saveAs({
+                        dataURI: workbook.toDataURL(),
+                        fileName: geoselected + "_Business_Jobs_Industry_Overview" + ".xlsx"
+                    })
+                })
+        } else if (filterclicked == 2) {
+            promises = [$.Deferred(), $.Deferred()];
+            // trigger export of grids
+            $("#top20grid").data("kendoGrid").saveAsExcel();
+            $("#keyindgrid").data("kendoGrid").saveAsExcel();
+            // wait for exports to finish
+            $.when.apply(null, promises)
+                .then(function (top20Workbook, keyindWorkbook) {
+                    // create a new workbook using the sheets 
+                    var sheets = [
+                        top20Workbook.sheets[0],
+                        keyindWorkbook.sheets[0],
+                    ];
+                    sheets[0].title = "Top 20 Employers";
+                    sheets[1].title = "Key Industries";
+                    var workbook = new kendo.ooxml.Workbook({
+                        sheets: sheets
+                    });
+                    // save the new workbook
+                    kendo.saveAs({
+                        dataURI: workbook.toDataURL(),
+                        fileName: geoselected + "_Business_Jobs_Industry_Overview" + ".xlsx"
+                    })
+                })
+        } else if (filterclicked == 0) {
+            promises = [$.Deferred(), $.Deferred(), $.Deferred()]
+            // trigger export of grids
+            $("#top20grid").data("kendoGrid").saveAsExcel();
+            $("#clustergrid").data("kendoGrid").saveAsExcel();
+            $("#keyindgrid").data("kendoGrid").saveAsExcel();
+            // wait for exports to finish
+            $.when.apply(null, promises)
+                .then(function (top20Workbook, clustersWorkbook, keyindWorkbook) {
+                    // create a new workbook using the sheets 
+                    var sheets = [
+                        top20Workbook.sheets[0],
+                        clustersWorkbook.sheets[0],
+                        keyindWorkbook.sheets[0]
+                    ];
+                    sheets[0].title = "Top 20 Employers";
+                    sheets[1].title = "Industry Clusters";
+                    sheets[2].title = "Key Industries";
+                    var workbook = new kendo.ooxml.Workbook({
+                        sheets: sheets
+                    });
+                    // save the new workbook
+                    kendo.saveAs({
+                        dataURI: workbook.toDataURL(),
+                        fileName: geoselected + "_Business_Jobs_Industry_Overview" + ".xlsx"
+                    })
+                })
+        }
+    }
+    $(".overviewExcelExport").on('click', exportTab);
 });

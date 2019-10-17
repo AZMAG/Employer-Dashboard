@@ -386,3 +386,14 @@ div.k-loading-mask {
     position: absolute !important;
     right: 20px;
 }
+
+@media screen and (min-width: 1205px) {
+    .exportall {
+        position: absolute !important;
+        left: 20px;
+    }
+}
+
+.exportall {
+    margin-bottom: 10px;
+}
