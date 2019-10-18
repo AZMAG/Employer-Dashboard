@@ -2707,7 +2707,7 @@ $(document).ready(function () {
     $(".fdiEmployersExcelExport").kendoButton({
         click: function () {
             fdipromise = [$.Deferred()]
-            $("#fdigrid").getKendoGrid().saveAsExcel();
+            $("#fdiGrid").getKendoGrid().saveAsExcel();
             $.when.apply(null, fdipromise)
                 .then(function (singleWorkbook) {
                     var sheets = [
