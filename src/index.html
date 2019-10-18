@@ -79,7 +79,7 @@
                     </div>
 
                 </div>
-                <div id="totalsgrid"></div>
+                <div id="totalsgrid" style="display:none;"></div>
                 <hr>
                 <div class="row valign">
                     <div class="overhundredpct col-md-2"></div>
@@ -151,7 +151,10 @@
                         locations with 5+ employees, all jobs 10+ rounded to nearest 10</small></p>
             </div>
             <div class="section-wrapper text-center">
-                <button class="topbutton fdireset">Clear <span class="fdifiltertype">&nbsp;</span>Filter</button>
+                <button class="FDIExcelExport exportall"><i style="color:#2baab1;" class="fas fa-file-excel fa-1.5x"
+                        title="Download data"></i> &nbsp;Download
+                    Data</button><button class="topbutton fdireset">Clear <span
+                        class="fdifiltertype">&nbsp;</span>Filter</button>
                 <p><small>This page can be filtered by parent country (by clicking on a bar or axis label), industry
                         cluster, or key industry.<br><em>Note: Only <u>one filter category</u> can be applied at a time.
                             Click on "Clear Filter" to reset the page and select a different category.</em></small></p>
@@ -164,7 +167,7 @@
                     <div class="fdicountriesnumber">
                         <h2 class="nomarg1"><i style="color:#2baab1;" class="fas fa-globe fa-1.5x"></i>
                             <strong><span id="totalFDICountries">&nbsp;</span></strong></h2>
-                        <span class="totaltext">Parent Countries<a href="#note">*</a></span>
+                        <span class="totaltext">Parent Countries<a href="#note" style="color:#2baab1;">*</a></span>
                     </div>
                     <div class="row text-center">
                         <div class="col-xs-2"></div>
@@ -184,13 +187,16 @@
                 <p class="spaceabove fditextpadding">Foreign Direct Investment (FDI) is a key economic driver. For
                     regions across the U.S., FDI brings additional capital, creates jobs, encourages transfer of
                     technology and knowledge, and allows for a wider promotion of products.</p>
+                <div id="fditotalsgrid" style="display:none;"></div>
                 <hr>
                 <div class="row">
                     <div class="col-md-6">
-                        <h4 class="nospaceunder"><strong><span id="fdicharttitle">&nbsp;</span><a
-                                    href="#note">*</a></strong> <span class="dlicon fdicountriesExcelExport"><i
+                        <h4 class="nospaceunder"><strong><span id="fdicharttitle">&nbsp;</span><a href="#note"
+                                    style="color:#2baab1;">*</a></strong>
+                            <!-- <span class="dlicon fdicountriesExcelExport"><i
                                     style="color:#2baab1;" class="fas fa-file-excel fa-1.5x"
-                                    title="Download data"></i></span></h4>
+                                    title="Download data"></i></span> -->
+                        </h4>
                         <p class="nospaceunder"><strong><span
                                     class="filteredcategoryFDI filtercolor">&nbsp;</span></strong></p><em>by total
                             jobs</em>
@@ -200,9 +206,10 @@
                     <div class="col-md-6">
                         <div class="row">
                             <h4 class="nospaceunder"><strong>Top 10 Foreign-Owned<span
-                                        class="filteredsimplefdi filtercolor">&nbsp;</span>Employers</strong> <span
-                                    class="dlicon fdiEmployersExcelExport"><i style="color:#2baab1;"
-                                        class="fas fa-file-excel fa-1.5x" title="Download data"></i></span><br></h4>
+                                        class="filteredsimplefdi filtercolor">&nbsp;</span>Employers</strong>
+                                <!-- <span class="dlicon fdiEmployersExcelExport"><i style="color:#2baab1;"
+                                        class="fas fa-file-excel fa-1.5x" title="Download data"></i></span> -->
+                                <br></h4>
                             <p class="nomarg"><strong><span class="FDIcountry">&nbsp;</span></strong></p>
                             <p class="nospaceabove"><em>by total
                                     jobs</em></p>
@@ -214,8 +221,9 @@
                         <div class="row">
                             <h4 class="nospaceunder"><strong>Top 5<span
                                         class="filteredsimplefdi filtercolor">&nbsp;</span>Parent Companies</strong>
-                                <span class="dlicon fdiParentExcelExport"><i style="color:#2baab1;"
-                                        class="fas fa-file-excel fa-1.5x" title="Download data"></i></span><br></h4>
+                                <!-- <span class="dlicon fdiParentExcelExport"><i style="color:#2baab1;"
+                                        class="fas fa-file-excel fa-1.5x" title="Download data"></i></span> -->
+                                <br></h4>
                             <p class="nomarg"><strong><span class="FDIcountry">&nbsp;</span></strong></p>
                             <p class="nospaceabove"><em>by total
                                     jobs</em></p>
@@ -226,9 +234,10 @@
                 <hr>
                 <div class="fdiclustersection">
                     <button class="fdireset">Clear <span class="fdifiltertype">&nbsp;</span>Filter</button>
-                    <h4 class="nospaceunder"><strong>Industry Clusters</strong> <span
-                            class="dlicon fdiclusterExcelExport"><i style="color:#2baab1;"
-                                class="fas fa-file-excel fa-1.5x" title="Download data"></i></span></h4>
+                    <h4 class="nospaceunder"><strong>Industry Clusters</strong>
+                        <!-- <span class="dlicon fdiclusterExcelExport"><i style="color:#2baab1;"
+                                class="fas fa-file-excel fa-1.5x" title="Download data"></i></span> -->
+                    </h4>
                     <p class="nospaceabove"><strong><span class="filteredcategoryFDI filtercolor">
                                 &nbsp;</span> <span class="FDIcountry">
                                 &nbsp;</span></strong></p>
@@ -241,9 +250,9 @@
                 <div class="fdikeyindsection">
                     <button class="fdireset">Clear <span class="fdifiltertype">&nbsp;</span>Filter</button>
 
-                    <h4 class="nospaceunder"><strong>Key Industries</strong> <span
-                            class="dlicon fdikeyindExcelExport"><i style="color:#2baab1;"
-                                class="fas fa-file-excel fa-1.5x" title="Download data"></i></span>
+                    <h4 class="nospaceunder"><strong>Key Industries</strong>
+                        <!-- <span class="dlicon fdikeyindExcelExport"><i style="color:#2baab1;"
+                                class="fas fa-file-excel fa-1.5x" title="Download data"></i></span> -->
                     </h4>
                     <p class="nospaceabove"><strong><span class="filteredcategoryFDI filtercolor">
                                 &nbsp;</span> <span class="FDIcountry">

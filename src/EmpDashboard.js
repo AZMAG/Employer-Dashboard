@@ -1,6 +1,6 @@
 var empUrl = "https://geo.azmag.gov/arcgis/rest/services/maps/StateEmploymentDashboard2018/MapServer/0";
 var indextest = 0;
-var GeographyList, dataclusters, datagrid20all, dsfdi, filenametest, totalBus, keyindnametest, clusternametest;
+var GeographyList, dataclusters, datagrid20all, dsfdi, filenametest, totalBus, keyindnametest, clusternametest, totalCountries;
 var fdiChartHeight = 635;
 var toggleClick = 1;
 var toggleClickfdi = 1;
@@ -8,6 +8,9 @@ var overviewfilterapplied = "";
 var top20overviewfilterapplied = "";
 var fdifiltertext = "";
 var filterclicked = 0;
+var fdifilterclicked = 0;
+var overviewgeography = "Phoenix MSA";
+var checkCountriesFilter = 1;
 
 var sourceyear = 2018;
 var azsourceyear = "2017/2018";
@@ -265,6 +268,12 @@ $(document).ready(function () {
                 $(".selectedgeographyFDI").html(e.dataItem.Geography);
                 $(".selectedgeography").html(e.dataItem.Geography);
                 geoselected = e.dataItem.Geography;
+                if (e.dataItem.Geography == "Arizona") {
+                    overviewgeography = "Phoenix MSA";
+                } else {
+                    overviewgeography = geoselected;
+                }
+
 
                 //FDI CHART HEIGHT
                 if (item == 'Maricopa County' || item == 'Phoenix MSA' || item == 'Arizona' || item == 'Phoenix') {
@@ -337,6 +346,9 @@ $(document).ready(function () {
                 $(".filternoteKI").show();
                 $(".filteredcategoryFDI").html("");
                 $(".filteredsimplefdi").html(" ");
+                $(".clustersection").show(); //added 10/17/19
+                $(".keyindsection").show(); //added 10/17/19
+                checkCountriesFilter = 1;
                 fdifiltertext = "";
                 toggleClick = 1;
                 toggleClickfdi = 1;
@@ -445,7 +457,7 @@ $(document).ready(function () {
                 });
 
                 var groupbyCountry = GetDataGroupedByFields(data, ["UltimateParentCountry"]);
-                var totalCountries = groupbyCountry.length;
+                totalCountries = groupbyCountry.length;
                 $("#totalFDICountries").html(kendo.toString(totalCountries, 'n0'));
 
                 function dynamicfdicharttitle() {
@@ -478,7 +490,8 @@ $(document).ready(function () {
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
                                 value: "Note: Jobs 10+ rounded to nearest 10",
-                                italic: true,
+                                italic: false,
+                                fontSize: 12,
                                 background: "#ffffff",
                                 colSpan: 1,
                                 color: "#000000",
@@ -488,7 +501,8 @@ $(document).ready(function () {
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
                                 value: "Source: 2018 MAG Employer Database, jobs 10+ rounded to nearest 10",
-                                italic: true,
+                                italic: false,
+                                fontSize: 12,
                                 background: "#ffffff",
                                 colSpan: 1,
                                 color: "#000000",
@@ -519,6 +533,8 @@ $(document).ready(function () {
                                 row.cells[cellIndex].format = "#,##"
                             }
                         }
+                        e.preventDefault();
+                        fdipromises[1].resolve(e.workbook);
                     },
                     columns: [{
                         field: "UltimateParentCountry",
@@ -545,6 +561,8 @@ $(document).ready(function () {
 
                 function clickFDIcountrybar(e) {
                     if (toggleClickfdi == 1 || toggleClickfdi == 3) {
+                        totalCountries = null;
+                        checkCountriesFilter = null;
                         toggleClickfdi = 3;
                         $(".fdireset").show();
                         $(".fdifiltertype").html("Parent Country ")
@@ -581,6 +599,8 @@ $(document).ready(function () {
 
                 function clickFDIcountryaxis(e) {
                     if (toggleClickfdi == 1 || toggleClickfdi == 3) {
+                        totalCountries = null;
+                        checkCountriesFilter = null;
                         toggleClickfdi = 3;
                         $(".fdireset").show();
                         $(".fdifiltertype").html("Parent Country ")
@@ -669,6 +689,8 @@ $(document).ready(function () {
         FDIcountrysection();
 
         $(".fdireset").click(function () {
+            checkCountriesFilter = 1;
+            fdifilterclicked = 0;
             displayLoading("#fdiChart");
             displayLoading("#fdiGridshow");
             displayLoading("#fdiparentGrid");
@@ -744,7 +766,7 @@ $(document).ready(function () {
                         headerAttributes: {
                             style: "font-weight:bold;"
                         },
-                        headerTemplate: "<span title='Parent Country'>Parent Country<a href='#note'>*</a></span>"
+                        headerTemplate: "<span title='Parent Country'>Parent Country<a href='#note' style='color:#2baab1;'>*</a></span>"
                     }, {
                         field: "Locations",
                         attributes: {
@@ -828,7 +850,8 @@ $(document).ready(function () {
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
                                 value: "Note: Jobs 10+ rounded to nearest 10",
-                                italic: true,
+                                italic: false,
+                                fontSize: 12,
                                 background: "#ffffff",
                                 colSpan: 1,
                                 color: "#000000",
@@ -838,7 +861,8 @@ $(document).ready(function () {
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
                                 value: "Source: 2018 MAG Employer Database, jobs 10+ rounded to nearest 10",
-                                italic: true,
+                                italic: false,
+                                fontSize: 12,
                                 background: "#ffffff",
                                 colSpan: 1,
                                 color: "#000000",
@@ -869,7 +893,8 @@ $(document).ready(function () {
                                 row.cells[cellIndex].format = "#,##"
                             }
                         }
-
+                        e.preventDefault();
+                        fdipromises[2].resolve(e.workbook);
                     },
                 });
 
@@ -906,7 +931,7 @@ $(document).ready(function () {
                         headerAttributes: {
                             style: "font-weight:bold;"
                         },
-                        headerTemplate: "<span title='Parent Country'>Parent Country<a href='#note'>*</a></span>"
+                        headerTemplate: "<span title='Parent Country'>Parent Country<a href='#note' style='color:#2baab1;'>*</a></span>"
                     }, {
                         field: "Locations",
                         attributes: {
@@ -937,7 +962,8 @@ $(document).ready(function () {
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
                                 value: "Note: Jobs 10+ rounded to nearest 10",
-                                italic: true,
+                                italic: false,
+                                fontSize: 12,
                                 background: "#ffffff",
                                 colSpan: 1,
                                 color: "#000000",
@@ -947,7 +973,8 @@ $(document).ready(function () {
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
                                 value: "Source: 2018 MAG Employer Database, jobs 10+ rounded to nearest 10",
-                                italic: true,
+                                italic: false,
+                                fontSize: 12,
                                 background: "#ffffff",
                                 colSpan: 1,
                                 color: "#000000",
@@ -978,6 +1005,8 @@ $(document).ready(function () {
                                 row.cells[cellIndex].format = "#,##"
                             }
                         }
+                        e.preventDefault();
+                        fdipromises[3].resolve(e.workbook);
                     },
                 });
             });
@@ -1013,15 +1042,105 @@ $(document).ready(function () {
                 }, 0);
                 if (sumallemp < 10) {
                     $("#totaljobsfdi").html(sumallemp);
+                    totaljobsfdi = sumallemp;
                 } else {
                     $("#totaljobsfdi").html(kendo.toString(Math.round(sumallemp / 10) * 10, 'n0'));
+                    totaljobsfdi = Math.round(sumallemp / 10) * 10;
                 }
+
+                var parentCountriesTitle;
+                if (checkCountriesFilter !== null) {
+                    excelCountries = totalCountries;
+                    parentCountriesTitle = "Parent Countries";
+                } else {
+                    parentCountriesTitle = null;
+                }
+
+                $("#fditotalsgrid").kendoGrid({
+                    excel: {
+                        fileName: "FDITotals.xlsx",
+                        allPages: true
+                    },
+                    excelExport: function (e) {
+                        //autowidth columns
+                        var columns = e.workbook.sheets[0].columns;
+                        columns.forEach(function (column) {
+                            delete column.width;
+                            column.autoWidth = true;
+                        });
+                        e.workbook.sheets[0].rows.unshift({
+                                cells: [{
+                                    value: "* 'Parent Country' refers to the origin country of the foreign-owned employer's parent company.",
+                                    italic: false,
+                                    fontSize: 12,
+                                }]
+                            }),
+                            e.workbook.sheets[0].rows.unshift({
+                                cells: [{
+                                    value: "Note: Jobs 10+ rounded to nearest 10",
+                                    italic: false,
+                                    fontSize: 12,
+                                }]
+                            }),
+                            e.workbook.sheets[0].rows.unshift({
+                                cells: [{
+                                    value: "Source: 2018 MAG Employer Database",
+                                    italic: false,
+                                    fontSize: 12,
+                                }]
+                            }),
+                            e.workbook.sheets[0].rows.unshift({
+                                cells: [{
+                                    value: totalCountries
+                                }, {
+                                    value: parentCountriesTitle,
+                                }, ]
+                            }),
+                            e.workbook.sheets[0].rows.unshift({
+                                cells: [{
+                                    value: totaljobsfdi
+                                }, {
+                                    value: "Jobs",
+                                }]
+                            }),
+                            e.workbook.sheets[0].rows.unshift({
+
+                                cells: [{
+                                    value: totalBusFDI
+                                }, {
+                                    value: "Employers",
+                                }]
+                            }),
+
+                            e.workbook.sheets[0].rows.unshift({
+                                cells: [{
+                                    value: geoselected + " Foreign-Owned Businesses" + fdifiltertext,
+                                    bold: true,
+                                    // underline: true
+                                }]
+                            })
+
+
+                        //number format cells
+                        var sheet = e.workbook.sheets[0];
+                        for (var rowIndex = 1; rowIndex < sheet.rows.length; rowIndex++) {
+                            var row = sheet.rows[rowIndex];
+                            for (var cellIndex = 0; cellIndex < row.cells.length; cellIndex++) {
+                                row.cells[cellIndex].format = "#,##"
+                            }
+                        }
+
+                        e.preventDefault();
+                        fdipromises[0].resolve(e.workbook);
+                    }
+                });
             });
         }
         calculateFDItotals();
 
         function clickClusterfdi(e) {
             if (toggleClickfdi == 1 || toggleClickfdi == 2) {
+                fdifilterclicked = 1;
                 //filter calculate totals - add cluster filter
                 $(".fdifiltertype").html("Cluster ")
                 toggleClickfdi = 2;
@@ -1055,6 +1174,7 @@ $(document).ready(function () {
 
                 $(".fdireset").show();
                 $(".fdikeyindsection").hide();
+                checkCountriesFilter = 1;
             } else {}
         }
 
@@ -1092,7 +1212,8 @@ $(document).ready(function () {
                             cells: [{
                                 value: "Note: Jobs 10+ rounded to nearest 10",
                                 background: "#ffffff",
-                                italic: true,
+                                italic: false,
+                                fontSize: 12,
                                 colSpan: 1,
                                 color: "#000000",
                                 rowSpan: 1,
@@ -1100,9 +1221,10 @@ $(document).ready(function () {
                         })
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
-                                value: "Source: 2018 MAG Employer Database, business locations with 5+ employees",
+                                value: "Source: 2018 MAG Employer Database",
                                 background: "#ffffff",
-                                italic: true,
+                                italic: false,
+                                fontSize: 12,
                                 colSpan: 1,
                                 color: "#000000",
                                 rowSpan: 1,
@@ -1132,6 +1254,8 @@ $(document).ready(function () {
                                 row.cells[cellIndex].format = "#,##"
                             }
                         }
+                        e.preventDefault();
+                        fdipromises[4].resolve(e.workbook);
                     },
                     dataSource: {
                         data: dataclustersfdi,
@@ -1300,10 +1424,13 @@ $(document).ready(function () {
 
                 function clickKIfdi(e) {
                     if (toggleClickfdi == 1 || toggleClickfdi == 4) {
+
+                        fdifilterclicked = 2;
                         //filter calculate totals - add cluster filter
                         $(".fdifiltertype").html("Key Industry ")
                         toggleClickfdi = 4;
                         var selectedKI = e.dataItem.field;
+                        var selectedKIname = e.dataItem.name;
                         var addand = " AND ";
                         var test1 = fdiquery + addand + selectedKI + "=1";
                         fdifilterquery = test1;
@@ -1313,7 +1440,7 @@ $(document).ready(function () {
                         FDIcountrysection();
                         gridsEmpParent();
 
-                        fdifiltertext = " - Filter: " + selectedKI; //add filter to excel export
+                        fdifiltertext = " - Filter: " + selectedKIname; //add filter to excel export
 
                         //apply the filters
                         $(".filteredcategoryFDI").html("Key Industry: " + e.category);
@@ -1334,6 +1461,7 @@ $(document).ready(function () {
 
                         $(".fdireset").show();
                         $(".fdiclustersection").hide();
+                        checkCountriesFilter = 1;
                     } else {}
                 }
 
@@ -1371,7 +1499,8 @@ $(document).ready(function () {
                             cells: [{
                                 value: "Note: Jobs 10+ rounded to nearest 10",
                                 background: "#ffffff",
-                                italic: true,
+                                italic: false,
+                                fontSize: 12,
                                 colSpan: 1,
                                 color: "#000000",
                                 rowSpan: 1,
@@ -1379,8 +1508,9 @@ $(document).ready(function () {
                         })
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
-                                value: "Source: 2018 MAG Employer Database, business locations with 5+ employees",
-                                italic: true,
+                                value: "Source: 2018 MAG Employer Database",
+                                italic: false,
+                                fontSize: 12,
                                 background: "#ffffff",
                                 colSpan: 1,
                                 color: "#000000",
@@ -1411,6 +1541,13 @@ $(document).ready(function () {
                             for (var cellIndex = 0; cellIndex < row.cells.length; cellIndex++) {
                                 row.cells[cellIndex].format = "#,##"
                             }
+                        }
+                        e.preventDefault();
+
+                        if (fdifilterclicked == 0) {
+                            fdipromises[5].resolve(e.workbook);
+                        } else if (fdifilterclicked == 2) {
+                            fdipromises[4].resolve(e.workbook);
                         }
                     },
                 });
@@ -1504,8 +1641,10 @@ $(document).ready(function () {
 
                 if (sumallemp < 10) {
                     $("#totaljobs").html(sumallemp);
+                    totaljobs = sumallemp;
                 } else {
                     $("#totaljobs").html(kendo.toString(Math.round(sumallemp / 10) * 10, 'n0'));
+                    totaljobs = Math.round(sumallemp / 10) * 10;
                 }
 
                 var top20emp = allemp.slice(0, 20);
@@ -1516,6 +1655,95 @@ $(document).ready(function () {
                 var top20percent = sumtop20emp / sumallemp;
 
                 $(".top20percent").html(kendo.toString(top20percent * 100, 'n0'));
+
+                //export Totals TEST
+
+                if (overviewfilterapplied !== "") {
+                    filtertext = " - Filter: ";
+                } else {
+                    filtertext = "";
+                }
+
+                $("#totalsgrid").kendoGrid({
+                    excel: {
+                        fileName: "Totals.xlsx",
+                        allPages: true
+                    },
+                    excelExport: function (e) {
+                        //autowidth columns
+                        var columns = e.workbook.sheets[0].columns;
+                        columns.forEach(function (column) {
+                            delete column.width;
+                            column.autoWidth = true;
+                        });
+
+                        e.workbook.sheets[0].rows.unshift({
+                                cells: [{
+                                    value: "Note: Jobs 10+ rounded to nearest 10",
+                                    italic: false,
+                                    fontSize: 12,
+                                }]
+                            }),
+                            e.workbook.sheets[0].rows.unshift({
+                                cells: [{
+                                    value: "Source: 2018 MAG Employer Database, business locations with 5+ employees",
+                                    italic: false,
+                                    fontSize: 12,
+                                }]
+                            }),
+                            e.workbook.sheets[0].rows.unshift({
+                                cells: [{
+                                    value: totaljobs
+                                }, {
+                                    value: "Jobs",
+                                    // background: "#717171",
+                                    // color: "#ffffff",
+                                    // bold: true,
+                                }]
+                            }),
+                            e.workbook.sheets[0].rows.unshift({
+
+                                cells: [{
+                                    value: totalBus
+                                }, {
+                                    value: "Employers",
+                                    // background: "#717171",
+                                    // color: "#ffffff",
+                                    // bold: true,
+                                }]
+                            }),
+                            e.workbook.sheets[0].rows.unshift({
+                                cells: [{
+                                    value: totallocations
+                                }, {
+                                    value: "Business Locations",
+                                    // background: "#717171",
+                                    // color: "#ffffff",
+                                    // bold: true,
+                                }, ]
+                            }),
+                            e.workbook.sheets[0].rows.unshift({
+                                cells: [{
+                                    value: overviewgeography + " Totals" + filtertext + overviewfilterapplied,
+                                    bold: true,
+                                    // underline: true
+                                }]
+                            })
+
+
+                        //number format cells
+                        var sheet = e.workbook.sheets[0];
+                        for (var rowIndex = 1; rowIndex < sheet.rows.length; rowIndex++) {
+                            var row = sheet.rows[rowIndex];
+                            for (var cellIndex = 0; cellIndex < row.cells.length; cellIndex++) {
+                                row.cells[cellIndex].format = "#,##"
+                            }
+                        }
+
+                        e.preventDefault();
+                        promises[0].resolve(e.workbook);
+                    }
+                });
 
                 //top20grid section
                 testtop20data = GetDataGroupedByFields(data, ["EmpName"]);
@@ -1529,7 +1757,7 @@ $(document).ready(function () {
                     },
                 });
 
-                filenametest = "Top 20" + top20overviewfilterapplied + " Employers - " + geoselected;
+                filenametest = "Top 20" + top20overviewfilterapplied + " Employers - " + overviewgeography;
 
                 //dynamic grid title
                 if (totalBus < 20) {
@@ -1562,7 +1790,8 @@ $(document).ready(function () {
                             cells: [{
                                 value: "Note: Jobs 10+ rounded to nearest 10",
                                 background: "#ffffff",
-                                italic: true,
+                                italic: false,
+                                fontSize: 12,
                                 colSpan: 1,
                                 color: "#000000",
                                 rowSpan: 1,
@@ -1572,7 +1801,8 @@ $(document).ready(function () {
                             cells: [{
                                 value: "Source: 2018 MAG Employer Database, business locations with 5+ employees",
                                 background: "#ffffff",
-                                italic: true,
+                                italic: false,
+                                fontSize: 12,
                                 colSpan: 1,
                                 color: "#000000",
                                 rowSpan: 1,
@@ -1604,7 +1834,7 @@ $(document).ready(function () {
                             }
                         }
                         e.preventDefault();
-                        promises[0].resolve(e.workbook);
+                        promises[1].resolve(e.workbook);
                     },
                     height: top20height,
                     dataSource: datagrid20all,
@@ -1729,7 +1959,7 @@ $(document).ready(function () {
                     }
                 ]; //console.log(keyindustries);
 
-                var keyindnametest = overviewfilterapplied + "Employment by Key Industry - " + geoselected;
+                var keyindnametest = overviewfilterapplied + "Employment by Key Industry - " + overviewgeography;
 
                 $("#keyindgrid").kendoGrid({
                     excel: {
@@ -1763,7 +1993,8 @@ $(document).ready(function () {
                             cells: [{
                                 value: "Note: Jobs 10+ rounded to nearest 10",
                                 background: "#ffffff",
-                                italic: true,
+                                italic: false,
+                                fontSize: 12,
                                 colSpan: 1,
                                 color: "#000000",
                                 rowSpan: 1,
@@ -1772,7 +2003,8 @@ $(document).ready(function () {
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
                                 value: "Source: 2018 MAG Employer Database, business locations with 5+ employees",
-                                italic: true,
+                                italic: false,
+                                fontSize: 12,
                                 background: "#ffffff",
                                 colSpan: 1,
                                 color: "#000000",
@@ -1806,9 +2038,9 @@ $(document).ready(function () {
                         }
                         e.preventDefault();
                         if (filterclicked == 0) {
-                            promises[2].resolve(e.workbook);
+                            promises[3].resolve(e.workbook);
                         } else if (filterclicked == 2) {
-                            promises[1].resolve(e.workbook);
+                            promises[2].resolve(e.workbook);
 
                         }
                     },
@@ -1817,7 +2049,6 @@ $(document).ready(function () {
                 function clickKI(e) {
                     if (toggleClick == 1 || toggleClick == 3) {
                         filterclicked = 2;
-                        console.log(filterclicked);
                         $(".filternoteCluster").hide();
                         $(".overviewfiltertype").html("Key Industry ")
                         toggleClick = 3;
@@ -1825,13 +2056,14 @@ $(document).ready(function () {
                         $("#keyindchart").data("kendoChart").refresh();
                         //filter calculate totals - add ki filter
                         var selectedKI = e.dataItem.field;
+                        var selectedKIname = e.dataItem.name;
                         var addand = " AND ";
                         var test1 = overviewquery + addand + selectedKI + "=1";
                         filterquery = test1;
                         calculateTotals();
                         calculateClusters();
-                        overviewfilterapplied = selectedKI + " ";
-                        top20overviewfilterapplied = " " + selectedKI;
+                        overviewfilterapplied = selectedKIname + " ";
+                        top20overviewfilterapplied = " " + selectedKIname;
 
                         //apply the filters
                         $(".filteredKI").html("Key Industry: " + e.category);
@@ -1951,7 +2183,6 @@ $(document).ready(function () {
                 function clickCluster(e) {
                     if (toggleClick == 1 || toggleClick == 2) {
                         filterclicked = 1;
-                        console.log(filterclicked);
                         $(".filternoteKI").hide();
                         $(".overviewfiltertype").html("Cluster ")
                         //filter calculate totals - add cluster filter
@@ -2003,7 +2234,7 @@ $(document).ready(function () {
                     } else {}
                 }
 
-                var clusternametest = overviewfilterapplied + "Employment by Clusters - " + geoselected;
+                var clusternametest = overviewfilterapplied + "Employment by Clusters - " + overviewgeography;
 
                 $("#clustergrid").kendoGrid({
                     excel: {
@@ -2015,7 +2246,8 @@ $(document).ready(function () {
                             cells: [{
                                 value: "Note: Jobs 10+ rounded to nearest 10",
                                 background: "#ffffff",
-                                italic: true,
+                                italic: false,
+                                fontSize: 12,
                                 colSpan: 1,
                                 color: "#000000",
                                 rowSpan: 1,
@@ -2025,7 +2257,8 @@ $(document).ready(function () {
                             cells: [{
                                 value: "Source: 2018 MAG Employer Database, business locations with 5+ employees",
                                 background: "#ffffff",
-                                italic: true,
+                                italic: false,
+                                fontSize: 12,
                                 colSpan: 1,
                                 color: "#000000",
                                 rowSpan: 1,
@@ -2056,7 +2289,7 @@ $(document).ready(function () {
                             }
                         }
                         e.preventDefault();
-                        promises[1].resolve(e.workbook);
+                        promises[2].resolve(e.workbook);
 
                     },
                     dataSource: {
@@ -2142,7 +2375,6 @@ $(document).ready(function () {
 
         $(".overviewreset").click(function () {
             filterclicked = 0;
-            console.log(filterclicked);
 
             //spinner loading
             displayLoading(".top20sharesection");
@@ -2177,122 +2409,160 @@ $(document).ready(function () {
     makedashboard(); //initial page load: Phoenix MSA
 
     //Export Buttons
-    // $(".top20ExcelExport").kendoButton({
-    //     click: function () {
-    //         $("#top20grid").getKendoGrid().saveAsExcel();
-    //     }
-    // });
 
-    // $(".clusterExcelExport").kendoButton({
-    //     click: function () {
-    //         $("#clustergrid").getKendoGrid().saveAsExcel();
-    //     }
-    // });
+    var fdipromises = [$.Deferred(), $.Deferred(), $.Deferred(), $.Deferred(), $.Deferred()];
 
-    // $(".keyindExcelExport").kendoButton({
-    //     click: function () {
-    //         $("#keyindgrid").getKendoGrid().saveAsExcel();
-    //     }
-    // });
-
-    $(".fdicountriesExcelExport").kendoButton({
-        click: function () {
+    function exportFDITab() {
+        if (fdifilterclicked == 1) {
+            fdipromises = [$.Deferred(), $.Deferred(), $.Deferred(), $.Deferred(), $.Deferred()];
+            $("#fditotalsgrid").getKendoGrid().saveAsExcel();
             $("#fdichartgrid").getKendoGrid().saveAsExcel();
-        }
-    });
-
-    $(".fdiclusterExcelExport").kendoButton({
-        click: function () {
-            $("#clustergridfdi").getKendoGrid().saveAsExcel();
-        }
-    });
-
-    $(".fdikeyindExcelExport").kendoButton({
-        click: function () {
-            $("#keyindgridfdi").getKendoGrid().saveAsExcel();
-        }
-    });
-
-    $(".fdiEmployersExcelExport").kendoButton({
-        click: function () {
             $("#fdiGrid").getKendoGrid().saveAsExcel();
-        }
-    });
-
-    $(".fdiParentExcelExport").kendoButton({
-        click: function () {
             $("#fdiparentGrid").getKendoGrid().saveAsExcel();
+            $("#clustergridfdi").getKendoGrid().saveAsExcel();
+
+            $.when.apply(null, fdipromises)
+                .then(function (fdiTotalsWorkbook, countriesWorkbook, topfdiWorkbook, topparentWorkbook, fdiclusterWorkbook) {
+                    // create a new workbook using the sheets 
+                    var sheets = [
+                        fdiTotalsWorkbook.sheets[0],
+                        countriesWorkbook.sheets[0],
+                        topfdiWorkbook.sheets[0],
+                        topparentWorkbook.sheets[0],
+                        fdiclusterWorkbook.sheets[0],
+                    ];
+                    sheets[0].title = "FDI Totals";
+                    sheets[1].title = "Parent Countries";
+                    sheets[2].title = "Foreign-Owned Employer List";
+                    sheets[3].title = "Parent Companies";
+                    sheets[4].title = "FDI Industry Clusters";
+                    var workbook = new kendo.ooxml.Workbook({
+                        sheets: sheets
+                    });
+                    // save the new workbook
+                    kendo.saveAs({
+                        dataURI: workbook.toDataURL(),
+                        fileName: geoselected + "_Foreign_Owned_Businesses" + ".xlsx"
+                    })
+                })
+        } else if (fdifilterclicked == 2) {
+            fdipromises = [$.Deferred(), $.Deferred(), $.Deferred(), $.Deferred(), $.Deferred()];
+            $("#fditotalsgrid").getKendoGrid().saveAsExcel();
+            $("#fdichartgrid").getKendoGrid().saveAsExcel();
+            $("#fdiGrid").getKendoGrid().saveAsExcel();
+            $("#fdiparentGrid").getKendoGrid().saveAsExcel();
+            $("#keyindgridfdi").getKendoGrid().saveAsExcel();
+
+            $.when.apply(null, fdipromises)
+                .then(function (fdiTotalsWorkbook, countriesWorkbook, topfdiWorkbook, topparentWorkbook, fdikeyindWorkbook) {
+                    // create a new workbook using the sheets 
+                    var sheets = [
+                        fdiTotalsWorkbook.sheets[0],
+                        countriesWorkbook.sheets[0],
+                        topfdiWorkbook.sheets[0],
+                        topparentWorkbook.sheets[0],
+                        fdikeyindWorkbook.sheets[0]
+                    ];
+                    sheets[0].title = "FDI Totals";
+                    sheets[1].title = "Parent Countries";
+                    sheets[2].title = "Foreign-Owned Employer List";
+                    sheets[3].title = "Parent Companies";
+                    sheets[4].title = "FDI Key Industries";
+                    var workbook = new kendo.ooxml.Workbook({
+                        sheets: sheets
+                    });
+                    // save the new workbook
+                    kendo.saveAs({
+                        dataURI: workbook.toDataURL(),
+                        fileName: geoselected + "_Foreign_Owned_Businesses" + ".xlsx"
+                    })
+                })
+        } else if (fdifilterclicked == 0) {
+            fdipromises = [$.Deferred(), $.Deferred(), $.Deferred(), $.Deferred(), $.Deferred(), $.Deferred()];
+            $("#fditotalsgrid").getKendoGrid().saveAsExcel();
+            $("#fdichartgrid").getKendoGrid().saveAsExcel();
+            $("#fdiGrid").getKendoGrid().saveAsExcel();
+            $("#fdiparentGrid").getKendoGrid().saveAsExcel();
+            $("#clustergridfdi").getKendoGrid().saveAsExcel();
+            $("#keyindgridfdi").getKendoGrid().saveAsExcel();
+
+            $.when.apply(null, fdipromises)
+                .then(function (fdiTotalsWorkbook, countriesWorkbook, topfdiWorkbook, topparentWorkbook, fdiclusterWorkbook, fdikeyindWorkbook) {
+                    // create a new workbook using the sheets 
+                    var sheets = [
+                        fdiTotalsWorkbook.sheets[0],
+                        countriesWorkbook.sheets[0],
+                        topfdiWorkbook.sheets[0],
+                        topparentWorkbook.sheets[0],
+                        fdiclusterWorkbook.sheets[0],
+                        fdikeyindWorkbook.sheets[0]
+                    ];
+                    sheets[0].title = "FDI Totals";
+                    sheets[1].title = "Parent Countries";
+                    sheets[2].title = "Foreign-Owned Employer List";
+                    sheets[3].title = "Parent Companies";
+                    sheets[4].title = "FDI Industry Clusters";
+                    sheets[5].title = "FDI Key Industries";
+                    var workbook = new kendo.ooxml.Workbook({
+                        sheets: sheets
+                    });
+                    // save the new workbook
+                    kendo.saveAs({
+                        dataURI: workbook.toDataURL(),
+                        fileName: geoselected + "_Foreign_Owned_Businesses" + ".xlsx"
+                    })
+                })
         }
-    });
+    }
+    $(".FDIExcelExport").on('click', exportFDITab);
 
     var promises = [$.Deferred(), $.Deferred(), $.Deferred()];
 
-    function exportTab() {
+    function exportOverviewTab() {
         if (filterclicked == 1) {
-            promises = [$.Deferred(), $.Deferred()];
+            promises = [$.Deferred(), $.Deferred(), $.Deferred()];
             // trigger export of grids
+            $("#totalsgrid").data("kendoGrid").saveAsExcel();
             $("#top20grid").data("kendoGrid").saveAsExcel();
             $("#clustergrid").data("kendoGrid").saveAsExcel();
             // wait for exports to finish
             $.when.apply(null, promises)
-                .then(function (top20Workbook, clustersWorkbook) {
+                .then(function (totalsWorkbook, top20Workbook, clustersWorkbook) {
                     // create a new workbook using the sheets 
                     var sheets = [
+                        totalsWorkbook.sheets[0],
                         top20Workbook.sheets[0],
                         clustersWorkbook.sheets[0],
                     ];
-                    sheets[0].title = "Top 20 Employers";
-                    sheets[1].title = "Industry Clusters";
+                    sheets[0].title = "Totals";
+                    sheets[1].title = "Top 20 Employers";
+                    sheets[2].title = "Industry Clusters";
                     var workbook = new kendo.ooxml.Workbook({
                         sheets: sheets
                     });
                     // save the new workbook
                     kendo.saveAs({
                         dataURI: workbook.toDataURL(),
-                        fileName: geoselected + "_Business_Jobs_Industry_Overview" + ".xlsx"
+                        fileName: overviewgeography + "_Business_Jobs_Industry_Overview" + ".xlsx"
                     })
                 })
         } else if (filterclicked == 2) {
-            promises = [$.Deferred(), $.Deferred()];
+            promises = [$.Deferred(), $.Deferred(), $.Deferred()];
             // trigger export of grids
+            $("#totalsgrid").data("kendoGrid").saveAsExcel();
             $("#top20grid").data("kendoGrid").saveAsExcel();
             $("#keyindgrid").data("kendoGrid").saveAsExcel();
             // wait for exports to finish
             $.when.apply(null, promises)
-                .then(function (top20Workbook, keyindWorkbook) {
+                .then(function (totalsWorkbook, top20Workbook, keyindWorkbook) {
                     // create a new workbook using the sheets 
                     var sheets = [
+                        totalsWorkbook.sheets[0],
                         top20Workbook.sheets[0],
                         keyindWorkbook.sheets[0],
                     ];
-                    sheets[0].title = "Top 20 Employers";
-                    sheets[1].title = "Key Industries";
-                    var workbook = new kendo.ooxml.Workbook({
-                        sheets: sheets
-                    });
-                    // save the new workbook
-                    kendo.saveAs({
-                        dataURI: workbook.toDataURL(),
-                        fileName: geoselected + "_Business_Jobs_Industry_Overview" + ".xlsx"
-                    })
-                })
-        } else if (filterclicked == 0) {
-            promises = [$.Deferred(), $.Deferred(), $.Deferred()]
-            // trigger export of grids
-            $("#top20grid").data("kendoGrid").saveAsExcel();
-            $("#clustergrid").data("kendoGrid").saveAsExcel();
-            $("#keyindgrid").data("kendoGrid").saveAsExcel();
-            // wait for exports to finish
-            $.when.apply(null, promises)
-                .then(function (top20Workbook, clustersWorkbook, keyindWorkbook) {
-                    // create a new workbook using the sheets 
-                    var sheets = [
-                        top20Workbook.sheets[0],
-                        clustersWorkbook.sheets[0],
-                        keyindWorkbook.sheets[0]
-                    ];
-                    sheets[0].title = "Top 20 Employers";
-                    sheets[1].title = "Industry Clusters";
+                    sheets[0].title = "Totals";
+                    sheets[1].title = "Top 20 Employers";
                     sheets[2].title = "Key Industries";
                     var workbook = new kendo.ooxml.Workbook({
                         sheets: sheets
@@ -2300,10 +2570,40 @@ $(document).ready(function () {
                     // save the new workbook
                     kendo.saveAs({
                         dataURI: workbook.toDataURL(),
-                        fileName: geoselected + "_Business_Jobs_Industry_Overview" + ".xlsx"
+                        fileName: overviewgeography + "_Business_Jobs_Industry_Overview" + ".xlsx"
+                    })
+                })
+        } else if (filterclicked == 0) {
+            promises = [$.Deferred(), $.Deferred(), $.Deferred(), $.Deferred()]
+            // trigger export of grids
+            $("#totalsgrid").data("kendoGrid").saveAsExcel();
+            $("#top20grid").data("kendoGrid").saveAsExcel();
+            $("#clustergrid").data("kendoGrid").saveAsExcel();
+            $("#keyindgrid").data("kendoGrid").saveAsExcel();
+            // wait for exports to finish
+            $.when.apply(null, promises)
+                .then(function (totalsWorkbook, top20Workbook, clustersWorkbook, keyindWorkbook) {
+                    // create a new workbook using the sheets 
+                    var sheets = [
+                        totalsWorkbook.sheets[0],
+                        top20Workbook.sheets[0],
+                        clustersWorkbook.sheets[0],
+                        keyindWorkbook.sheets[0]
+                    ];
+                    sheets[0].title = "Totals";
+                    sheets[1].title = "Top 20 Employers";
+                    sheets[2].title = "Industry Clusters";
+                    sheets[3].title = "Key Industries";
+                    var workbook = new kendo.ooxml.Workbook({
+                        sheets: sheets
+                    });
+                    // save the new workbook
+                    kendo.saveAs({
+                        dataURI: workbook.toDataURL(),
+                        fileName: overviewgeography + "_Business_Jobs_Industry_Overview" + ".xlsx"
                     })
                 })
         }
     }
-    $(".overviewExcelExport").on('click', exportTab);
+    $(".overviewExcelExport").on('click', exportOverviewTab);
 });
