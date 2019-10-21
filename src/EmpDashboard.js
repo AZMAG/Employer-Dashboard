@@ -1376,7 +1376,7 @@ $(document).ready(function () {
                 var keyind4 = GetDataGroupedByFields(data, ["InfoTech"]);
                 var Infotech = keyind4.pop();
                 var InfoJobsRAW = Infotech.EmployeesRAW * Infotech.InfoTech;
-                var InfoJobs = Infotech.EmployeesRAW * Infotech.InfoTech;
+                var InfoJobs = Infotech.Employees * Infotech.InfoTech;
 
                 var keyind5 = GetDataGroupedByFields(data, ["Manufacturing"]);
                 var Manufacturing = keyind5.pop();
