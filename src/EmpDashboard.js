@@ -1703,9 +1703,6 @@ $(document).ready(function () {
                                     value: totaljobs
                                 }, {
                                     value: "Jobs",
-                                    // background: "#717171",
-                                    // color: "#ffffff",
-                                    // bold: true,
                                 }]
                             }),
                             e.workbook.sheets[0].rows.unshift({
@@ -1714,9 +1711,6 @@ $(document).ready(function () {
                                     value: totalBus
                                 }, {
                                     value: "Employers",
-                                    // background: "#717171",
-                                    // color: "#ffffff",
-                                    // bold: true,
                                 }]
                             }),
                             e.workbook.sheets[0].rows.unshift({
@@ -1724,16 +1718,12 @@ $(document).ready(function () {
                                     value: totallocations
                                 }, {
                                     value: "Business Locations",
-                                    // background: "#717171",
-                                    // color: "#ffffff",
-                                    // bold: true,
                                 }, ]
                             }),
                             e.workbook.sheets[0].rows.unshift({
                                 cells: [{
                                     value: overviewgeography + " Totals" + filtertext + overviewfilterapplied,
                                     bold: true,
-                                    // underline: true
                                 }]
                             })
 
@@ -2045,7 +2035,7 @@ $(document).ready(function () {
                             }
                         }
                         e.preventDefault();
-                        promise[0].resolve(e.workbook); //jQuery.Deferred exception: Cannot read property 'resolve' of undefined TypeError: Cannot read property 'resolve' of undefined (for line 2047)
+                        promise[0].resolve(e.workbook);
                         if (filterclicked == 0) {
                             promises[3].resolve(e.workbook);
                         } else if (filterclicked == 2) {
