@@ -1,6 +1,6 @@
 var empUrl = "https://geo.azmag.gov/arcgis/rest/services/maps/StateEmploymentDashboard2018/MapServer/0";
 var indextest = 0;
-var GeographyList, dataclusters, datagrid20all, dsfdi, filenametest, totalBus, keyindnametest, clusternametest, totalCountries;
+var GeographyList, dataclusters, datagrid20all, dsfdi, exportfilename, totalBus, exportkeyind, exportcluster, totalCountries;
 var fdiChartHeight = 635;
 var toggleClick = 1;
 var toggleClickfdi = 1;
@@ -1660,7 +1660,7 @@ $(document).ready(function () {
 
                 $(".top20percent").html(kendo.toString(top20percent * 100, 'n0'));
 
-                //export Totals TEST
+                //export Totals
 
                 if (overviewfilterapplied !== "") {
                     filtertext = " - Filter: ";
@@ -1750,10 +1750,10 @@ $(document).ready(function () {
                 });
 
                 //top20grid section
-                testtop20data = GetDataGroupedByFields(data, ["EmpName"]);
+                topempdata = GetDataGroupedByFields(data, ["EmpName"]);
                 datagrid20all = new kendo.data.DataSource({
                     // data: GetDataGroupedByFields(data, ["EmpName"]),
-                    data: testtop20data,
+                    data: topempdata,
                     pageSize: 20,
                     sort: {
                         field: "EmployeesRAW",
@@ -1761,7 +1761,7 @@ $(document).ready(function () {
                     },
                 });
 
-                filenametest = "Top 20" + top20overviewfilterapplied + " Employers - " + overviewgeography;
+                exportfilename = "Top 20" + top20overviewfilterapplied + " Employers - " + overviewgeography;
 
                 //dynamic grid title
                 if (totalBus < 20) {
@@ -1786,7 +1786,7 @@ $(document).ready(function () {
 
                 $("#top20grid").kendoGrid({
                     excel: {
-                        fileName: filenametest + ".xlsx",
+                        fileName: exportfilename + ".xlsx",
                         allPages: false
                     },
                     excelExport: function (e) {
@@ -1814,7 +1814,7 @@ $(document).ready(function () {
                         })
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
-                                value: filenametest,
+                                value: exportfilename,
                                 background: "#ffffff",
                                 bold: true,
                                 colSpan: 1,
@@ -1964,11 +1964,11 @@ $(document).ready(function () {
                     }
                 ]; //console.log(keyindustries);
 
-                var keyindnametest = overviewfilterapplied + "Employment by Key Industry - " + overviewgeography;
+                var exportkeyind = overviewfilterapplied + "Employment by Key Industry - " + overviewgeography;
 
                 $("#keyindgrid").kendoGrid({
                     excel: {
-                        fileName: keyindnametest + ".xlsx",
+                        fileName: exportkeyind + ".xlsx",
                         allPages: false
                     },
                     dataSource: keyindustries,
@@ -2018,7 +2018,7 @@ $(document).ready(function () {
                         })
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
-                                value: keyindnametest,
+                                value: exportkeyind,
                                 background: "#ffffff",
                                 bold: true,
                                 colSpan: 1,
@@ -2042,7 +2042,7 @@ $(document).ready(function () {
                             }
                         }
                         e.preventDefault();
-                        promise[0].resolve(e.workbook); //jQuery.Deferred exception: Cannot read property 'resolve' of undefined TypeError: Cannot read property 'resolve' of undefined
+                        promise[0].resolve(e.workbook); //jQuery.Deferred exception: Cannot read property 'resolve' of undefined TypeError: Cannot read property 'resolve' of undefined (for line 2047)
                         if (filterclicked == 0) {
                             promises[3].resolve(e.workbook);
                         } else if (filterclicked == 2) {
@@ -2202,7 +2202,7 @@ $(document).ready(function () {
                         overviewfilterapplied = selectedcluster + " ";
                         top20overviewfilterapplied = " " + selectedcluster;
 
-                        $(".keyindsection").hide(); //TESTING HIDE
+                        $(".keyindsection").hide();
 
                         //apply the filters
                         $(".filteredCluster").html("Industry Cluster: " + e.category);
@@ -2239,11 +2239,11 @@ $(document).ready(function () {
                     } else {}
                 }
 
-                var clusternametest = overviewfilterapplied + "Employment by Clusters - " + overviewgeography;
+                var exportcluster = overviewfilterapplied + "Employment by Clusters - " + overviewgeography;
 
                 $("#clustergrid").kendoGrid({
                     excel: {
-                        fileName: clusternametest + ".xlsx",
+                        fileName: exportcluster + ".xlsx",
                         allPages: false
                     },
                     excelExport: function (e) {
@@ -2271,7 +2271,7 @@ $(document).ready(function () {
                         })
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
-                                value: clusternametest,
+                                value: exportcluster,
                                 background: "#ffffff",
                                 bold: true,
                                 colSpan: 1,
@@ -2415,7 +2415,7 @@ $(document).ready(function () {
 
     //Export Buttons
 
-    var fdipromises = [$.Deferred(), $.Deferred(), $.Deferred(), $.Deferred(), $.Deferred()];
+    var fdipromises = [$.Deferred(), $.Deferred(), $.Deferred(), $.Deferred(), $.Deferred(), $.Deferred()];
 
     function exportFDITab() {
         if (fdifilterclicked == 1) {
@@ -2521,7 +2521,7 @@ $(document).ready(function () {
     }
     $(".FDIExcelExport").on('click', exportFDITab);
 
-    var promises = [$.Deferred(), $.Deferred(), $.Deferred()];
+    var promises = [$.Deferred(), $.Deferred(), $.Deferred(), $.Deferred()];
 
     function exportOverviewTab() {
         if (filterclicked == 1) {

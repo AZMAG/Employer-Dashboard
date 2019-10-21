@@ -183,8 +183,7 @@ div.k-tabstrip:focus {
 .filteredsimple,
 .FDIcountry,
 .filtercolor {
-    /* color: royalblue;  */
-    color: #0FBAC3;
+    /* color: #0FBAC3; */
     font-weight: bold;
 }
 
@@ -235,11 +234,6 @@ div.titlebox {
     color: #2baab1;
     margin-bottom: 0px;
     /* margin:0px; */
-}
-
-.highlightblue {
-    font-weight: bold;
-    color: #2baab1;
 }
 
 .incrsize {
