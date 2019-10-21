@@ -15,7 +15,6 @@ h1 {
 
 body {
     background-color: #e0e0e0 !important;
-    /* min-width: 752px; */
 }
 
 @media screen and (min-width: 992px) {
@@ -158,6 +157,18 @@ div.k-tabstrip:focus {
     margin-bottom: 5px;
 }
 
+@media screen and (min-width: 1205px) {
+    .exportall {
+        position: absolute !important;
+        left: 20px;
+    }
+}
+
+.exportall {
+    margin-bottom: 10px;
+    margin-right: 5px;
+}
+
 #top20grid {
     margin-left: 10%;
     margin-right: 10%;
@@ -225,7 +236,6 @@ div.titlebox {
     line-height: 100px;
     height: 100px;
     margin-bottom: 0px;
-    /* margin:0px; */
 }
 
 .percentstyle {
@@ -233,7 +243,6 @@ div.titlebox {
     font-weight: bold;
     color: #2baab1;
     margin-bottom: 0px;
-    /* margin:0px; */
 }
 
 .incrsize {
@@ -268,7 +277,6 @@ div.titlebox {
     padding-bottom: 20px;
 }
 
-/* test */
 .dlicon {
     padding: 0;
     border: none;
@@ -335,7 +343,7 @@ div.k-loading-mask {
 
 /* Styling fullfdigrid with grouping header */
 
-.k-grid .k-grouping-row td {
+/* .k-grid .k-grouping-row td {
     background-color: white;
     border-bottom: 1px solid #cacaca;
     font-weight: normal;
@@ -379,16 +387,4 @@ div.k-loading-mask {
 .fdicollapse {
     position: absolute !important;
     right: 20px;
-}
-
-@media screen and (min-width: 1205px) {
-    .exportall {
-        position: absolute !important;
-        left: 20px;
-    }
-}
-
-.exportall {
-    margin-bottom: 10px;
-    margin-right: 5px;
-}
+} */

@@ -489,7 +489,7 @@ $(document).ready(function () {
                     excelExport: function (e) {
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
-                                value: "Note: Jobs 10+ rounded to nearest 10",
+                                value: "Note: Jobs 10+ rounded to nearest 10. Totals may not add up precisely due to rounding.",
                                 italic: false,
                                 fontSize: 12,
                                 background: "#ffffff",
@@ -500,7 +500,7 @@ $(document).ready(function () {
                         })
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
-                                value: "Source: 2018 MAG Employer Database, jobs 10+ rounded to nearest 10",
+                                value: "Source: 2018 Arizona COG/MPO Employer Database",
                                 italic: false,
                                 fontSize: 12,
                                 background: "#ffffff",
@@ -689,31 +689,34 @@ $(document).ready(function () {
         }
         FDIcountrysection();
 
-        $(".fdireset").click(function () {
-            checkCountriesFilter = 1;
-            fdifilterclicked = 0;
-            displayLoading("#fdiChart");
-            displayLoading("#fdiGridshow");
-            displayLoading("#fdiparentGrid");
-            displayLoading("#clusterchartfdi");
-            displayLoading("#keyindchartfdi");
+        $(".fdireset").kendoButton({
+            click: function () {
+                // $(".fdireset").click(function () {
+                checkCountriesFilter = 1;
+                fdifilterclicked = 0;
+                displayLoading("#fdiChart");
+                displayLoading("#fdiGridshow");
+                displayLoading("#fdiparentGrid");
+                displayLoading("#clusterchartfdi");
+                displayLoading("#keyindchartfdi");
 
-            $(".fdireset").hide();
-            $(".FDIcountry").html("");
-            $(".filteredcategoryFDI").html("");
-            $(".filteredsimplefdi").html(" ");
-            fdifilterquery = fdiquery;
-            makeFDIclusterchart();
-            gridsEmpParent();
-            makeFDIkeyindchart();
-            calculateFDItotals();
-            FDIcountrysection();
-            toggleClickfdi = 1;
-            $(".fdicountriesnumber").show();
-            fdifiltertext = "";
+                $(".fdireset").hide();
+                $(".FDIcountry").html("");
+                $(".filteredcategoryFDI").html("");
+                $(".filteredsimplefdi").html(" ");
+                fdifilterquery = fdiquery;
+                makeFDIclusterchart();
+                gridsEmpParent();
+                makeFDIkeyindchart();
+                calculateFDItotals();
+                FDIcountrysection();
+                toggleClickfdi = 1;
+                $(".fdicountriesnumber").show();
+                fdifiltertext = "";
 
-            $(".fdiclustersection").show();
-            $(".fdikeyindsection").show();
+                $(".fdiclustersection").show();
+                $(".fdikeyindsection").show();
+            }
         });
 
         fdifilterquery = fdiquery;
@@ -850,7 +853,7 @@ $(document).ready(function () {
                     excelExport: function (e) {
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
-                                value: "Note: Jobs 10+ rounded to nearest 10",
+                                value: "Note: Jobs 10+ rounded to nearest 10. Totals may not add up precisely due to rounding.",
                                 italic: false,
                                 fontSize: 12,
                                 background: "#ffffff",
@@ -861,7 +864,7 @@ $(document).ready(function () {
                         })
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
-                                value: "Source: 2018 MAG Employer Database, jobs 10+ rounded to nearest 10",
+                                value: "Source: 2018 Arizona COG/MPO Employer Database",
                                 italic: false,
                                 fontSize: 12,
                                 background: "#ffffff",
@@ -963,7 +966,7 @@ $(document).ready(function () {
                     excelExport: function (e) {
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
-                                value: "Note: Jobs 10+ rounded to nearest 10",
+                                value: "Note: Jobs 10+ rounded to nearest 10. Totals may not add up precisely due to rounding.",
                                 italic: false,
                                 fontSize: 12,
                                 background: "#ffffff",
@@ -974,7 +977,7 @@ $(document).ready(function () {
                         })
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
-                                value: "Source: 2018 MAG Employer Database, jobs 10+ rounded to nearest 10",
+                                value: "Source: 2018 Arizona COG/MPO Employer Database",
                                 italic: false,
                                 fontSize: 12,
                                 background: "#ffffff",
@@ -1054,7 +1057,7 @@ $(document).ready(function () {
                 var parentCountriesTitle;
                 if (checkCountriesFilter !== null) {
                     excelCountries = totalCountries;
-                    parentCountriesTitle = "Parent Countries";
+                    parentCountriesTitle = "Parent Countries*";
                 } else {
                     parentCountriesTitle = null;
                 }
@@ -1073,21 +1076,21 @@ $(document).ready(function () {
                         });
                         e.workbook.sheets[0].rows.unshift({
                                 cells: [{
-                                    value: "* 'Parent Country' refers to the origin country of the foreign-owned employer's parent company.",
+                                    value: "*'Parent Country' refers to the origin country of the foreign-owned employer's parent company.",
                                     italic: false,
                                     fontSize: 12,
                                 }]
                             }),
                             e.workbook.sheets[0].rows.unshift({
                                 cells: [{
-                                    value: "Note: Jobs 10+ rounded to nearest 10",
+                                    value: "Note: Jobs 10+ rounded to nearest 10.",
                                     italic: false,
                                     fontSize: 12,
                                 }]
                             }),
                             e.workbook.sheets[0].rows.unshift({
                                 cells: [{
-                                    value: "Source: 2018 MAG Employer Database",
+                                    value: "Source: 2018 Arizona COG/MPO Employer Database",
                                     italic: false,
                                     fontSize: 12,
                                 }]
@@ -1213,7 +1216,7 @@ $(document).ready(function () {
                     excelExport: function (e) {
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
-                                value: "Note: Jobs 10+ rounded to nearest 10",
+                                value: "Note: Jobs 10+ rounded to nearest 10. Totals may not add up precisely due to rounding.",
                                 background: "#ffffff",
                                 italic: false,
                                 fontSize: 12,
@@ -1224,7 +1227,7 @@ $(document).ready(function () {
                         })
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
-                                value: "Source: 2018 MAG Employer Database",
+                                value: "Source: 2018 Arizona COG/MPO Employer Database",
                                 background: "#ffffff",
                                 italic: false,
                                 fontSize: 12,
@@ -1501,7 +1504,7 @@ $(document).ready(function () {
                     excelExport: function (e) {
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
-                                value: "Note: Jobs 10+ rounded to nearest 10",
+                                value: "Note: Jobs 10+ rounded to nearest 10.",
                                 background: "#ffffff",
                                 italic: false,
                                 fontSize: 12,
@@ -1512,7 +1515,7 @@ $(document).ready(function () {
                         })
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
-                                value: "Source: 2018 MAG Employer Database",
+                                value: "Source: 2018 Arizona COG/MPO Employer Database",
                                 italic: false,
                                 fontSize: 12,
                                 background: "#ffffff",
@@ -1690,7 +1693,7 @@ $(document).ready(function () {
                             }),
                             e.workbook.sheets[0].rows.unshift({
                                 cells: [{
-                                    value: "Source: 2018 MAG Employer Database, business locations with 5+ employees",
+                                    value: "Source: 2018 Arizona COG/MPO Employer Database, business locations with 5+ employees",
                                     italic: false,
                                     fontSize: 12,
                                 }]
@@ -1792,7 +1795,7 @@ $(document).ready(function () {
                     excelExport: function (e) {
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
-                                value: "Note: Jobs 10+ rounded to nearest 10",
+                                value: "Note: Jobs 10+ rounded to nearest 10.",
                                 background: "#ffffff",
                                 italic: false,
                                 fontSize: 12,
@@ -1803,7 +1806,7 @@ $(document).ready(function () {
                         })
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
-                                value: "Source: 2018 MAG Employer Database, business locations with 5+ employees",
+                                value: "Source: 2018 Arizona COG/MPO Employer Database, business locations with 5+ employees",
                                 background: "#ffffff",
                                 italic: false,
                                 fontSize: 12,
@@ -1996,7 +1999,7 @@ $(document).ready(function () {
                     excelExport: function (e) {
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
-                                value: "Note: Jobs 10+ rounded to nearest 10",
+                                value: "Note: Jobs 10+ rounded to nearest 10.",
                                 background: "#ffffff",
                                 italic: false,
                                 fontSize: 12,
@@ -2007,7 +2010,7 @@ $(document).ready(function () {
                         })
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
-                                value: "Source: 2018 MAG Employer Database, business locations with 5+ employees",
+                                value: "Source: 2018 Arizona COG/MPO Employer Database, business locations with 5+ employees",
                                 italic: false,
                                 fontSize: 12,
                                 background: "#ffffff",
@@ -2249,7 +2252,7 @@ $(document).ready(function () {
                     excelExport: function (e) {
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
-                                value: "Note: Jobs 10+ rounded to nearest 10",
+                                value: "Note: Jobs 10+ rounded to nearest 10. Totals may not add up precisely due to rounding.",
                                 background: "#ffffff",
                                 italic: false,
                                 fontSize: 12,
@@ -2260,7 +2263,7 @@ $(document).ready(function () {
                         })
                         e.workbook.sheets[0].rows.unshift({
                             cells: [{
-                                value: "Source: 2018 MAG Employer Database, business locations with 5+ employees",
+                                value: "Source: 2018 Arizona COG/MPO Employer Database, business locations with 5+ employees",
                                 background: "#ffffff",
                                 italic: false,
                                 fontSize: 12,
@@ -2378,37 +2381,40 @@ $(document).ready(function () {
         }
         calculateClusters();
 
-        $(".overviewreset").click(function () {
-            filterclicked = 0;
+        // $(".overviewreset").click(function () {
+        $(".overviewreset").kendoButton({
+            click: function () {
+                filterclicked = 0;
 
-            //spinner loading
-            displayLoading(".top20sharesection");
-            displayLoading("#top20grid");
-            displayLoading("#clusterchart");
-            displayLoading("#keyindchart");
+                //spinner loading
+                displayLoading(".top20sharesection");
+                displayLoading("#top20grid");
+                displayLoading("#clusterchart");
+                displayLoading("#keyindchart");
 
-            //dynamic text
-            $(".filteredKI").html("");
-            $(".filteredCluster").html("");
-            $(".within").html("");
-            $(".withinCluster").html("");
-            $(".filteredsimple").html("&nbsp;");
-            $(".inindustry").html(" ");
+                //dynamic text
+                $(".filteredKI").html("");
+                $(".filteredCluster").html("");
+                $(".within").html("");
+                $(".withinCluster").html("");
+                $(".filteredsimple").html("&nbsp;");
+                $(".inindustry").html(" ");
 
-            //reset data
-            filterquery = overviewquery;
-            calculateTotals();
-            calculateKI();
-            calculateClusters();
-            $(".overviewreset").hide();
-            toggleClick = 1;
-            $(".filternoteKI").show();
-            $(".filternoteCluster").show();
-            overviewfilterapplied = "";
-            top20overviewfilterapplied = "";
+                //reset data
+                filterquery = overviewquery;
+                calculateTotals();
+                calculateKI();
+                calculateClusters();
+                $(".overviewreset").hide();
+                toggleClick = 1;
+                $(".filternoteKI").show();
+                $(".filternoteCluster").show();
+                overviewfilterapplied = "";
+                top20overviewfilterapplied = "";
 
-            $(".clustersection").show();
-            $(".keyindsection").show();
+                $(".clustersection").show();
+                $(".keyindsection").show();
+            }
         });
     };
     makedashboard(); //initial page load: Phoenix MSA
@@ -2519,7 +2525,10 @@ $(document).ready(function () {
                 })
         }
     }
-    $(".FDIExcelExport").on('click', exportFDITab);
+    // $(".FDIExcelExport").on('click', exportFDITab);
+    $(".FDIExcelExport").kendoButton({
+        click: exportFDITab
+    })
 
     var promises = [$.Deferred(), $.Deferred(), $.Deferred(), $.Deferred()];
 
@@ -2610,7 +2619,10 @@ $(document).ready(function () {
                 })
         }
     }
-    $(".overviewExcelExport").on('click', exportOverviewTab);
+    // $(".overviewExcelExport").on('click', exportOverviewTab);
+    $(".overviewExcelExport").kendoButton({
+        click: exportOverviewTab
+    })
 
     var promise = [$.Deferred()];
 

@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>DRAFT: Employment Dashboard</title>
-    <!-- <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2019.2.619/styles/kendo.common.min.css" /> -->
-    <!-- <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2019.2.619/styles/kendo.blueopal.min.css" /> -->
+    <title>Business, Jobs, and Industry Explorer</title>
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.1017/styles/kendo.common.min.css" />
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.1017/styles/kendo.silver.min.css" />
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.1017/styles/kendo.silver.mobile.min.css" />
@@ -49,9 +47,9 @@
 
             <div class="section-wrapper text-center">
                 <button class="overviewExcelExport exportall"><i style="color:#2baab1;"
-                        class="fas fa-file-excel fa-1.5x" title="Download data"></i> &nbsp;Download
-                    Data</button><button class="topbutton overviewreset">Clear <span
-                        class="overviewfiltertype">&nbsp;</span>Filter</button>
+                        class="fas fa-file-excel fa-1.5x" title="Download data">&nbsp;</i> &nbsp;Download
+                    Data</button><button class="topbutton overviewreset">Clear&nbsp;<span
+                        class="overviewfiltertype">&nbsp;</span>&nbsp;Filter</button>
                 <p><small>This page can be filtered by either industry cluster or key industry. Click on a bar chart
                         below to activate a filter.<br><em>Note: Only <u>one filter category</u> can be applied at a
                             time. Click on "Clear Filter" to reset the page and select a different
@@ -61,18 +59,18 @@
                             class="filteredCluster">&nbsp;</span></strong></h4>
                 <div class="row text-center totaloverview">
                     <div class="col-xs-4">
-                        <h2 class="nomarg1"><i style="color:#2baab1;" class="fas fa-map-marker-alt fa-1.5x"></i>
+                        <h2 class="nomarg1"><i style="color:#2baab1;" class="fas fa-map-marker-alt fa-1.5x">&nbsp;</i>
                             <strong><span id="totallocations">&nbsp;</span></strong></h2>
                         <span class="totaltext nospaceunder">Business Locations</span> <br><em>with 5 or more
                             Employees</em>
                     </div>
                     <div class="col-xs-4">
-                        <h2 class="nomarg1"><i style="color:#2baab1;" class="fas fa-city fa-1.5x"></i>
+                        <h2 class="nomarg1"><i style="color:#2baab1;" class="fas fa-city fa-1.5x">&nbsp;</i>
                             <strong><span id="totalbusinesses">&nbsp;</span></strong></h2>
                         <span class="totaltext nospaceunder">Employers</span> <br><em>with 5 or more Employees</em>
                     </div>
                     <div class="col-xs-4">
-                        <h2 class="nomarg1"><i style="color:#2baab1;" class="fas fa-users fa-1.5x"></i>
+                        <h2 class="nomarg1"><i style="color:#2baab1;" class="fas fa-users fa-1.5x">&nbsp;</i>
                             <strong><span id="totaljobs">&nbsp;</span></strong></h2>
                         <span class="totaltext nospaceunder">Jobs</span><br><em>at Locations with 5 or more
                             Employees</em>
@@ -88,7 +86,7 @@
                             <h4 class="nospaceunder"><strong><span id="top20gridtitle">&nbsp;</span><span
                                         class="filteredsimple">&nbsp;</span>Employers</strong>
                                 <span class="dlicon top20ExcelExport"><i style="color:#2baab1;"
-                                        class="fas fa-file-excel fa-1.5x" title="Download data"></i></span>
+                                        class="fas fa-file-excel fa-1.5x" title="Download data">&nbsp;</i></span>
                             </h4>
                             <p class="nospaceabove"><em>by total jobs</em></p>
                         </div>
@@ -115,13 +113,14 @@
                 <div class="clustersection">
                     <h4 class="nomarg"><strong>Industry Clusters</strong>
                         <span class="dlicon clusterExcelExport"><i style="color:#2baab1;"
-                                class="fas fa-file-excel fa-1.5x" title="Download data"></i></span>
+                                class="fas fa-file-excel fa-1.5x" title="Download data">&nbsp;</i></span>
                     </h4>
                     <p>Industry classifications created by MAG, based on Census NAICS codes.</p>
                     <p><span class="filteredKI">&nbsp;</span></p>
                     <!-- <span class="filteredCluster">&nbsp;</span> -->
                     <p class="filternoteCluster"><em>Click on a bar to filter this page by an industry cluster.</em></p>
-                    <button class="overviewreset">Clear <span class="overviewfiltertype">&nbsp;</span>Filter</button>
+                    <button class="overviewreset">Clear&nbsp;<span
+                            class="overviewfiltertype">&nbsp;</span>&nbsp;Filter</button>
                     <div class="row">
                         <div id="clusterchart"></div>
                         <div id="clustergrid" style="display:none;"></div>
@@ -131,7 +130,7 @@
                 <div class="keyindsection">
                     <h4 class="nomarg"><strong>Key Industries</strong>
                         <span class="dlicon keyindExcelExport"><i style="color:#2baab1;"
-                                class="fas fa-file-excel fa-1.5x" title="Download data"></i></span>
+                                class="fas fa-file-excel fa-1.5x" title="Download data">&nbsp;</i></span>
                     </h4>
                     <!-- <p class="nomarg"><span class="filteredKI">&nbsp;</span></p> -->
                     <p><span class="filteredCluster">&nbsp;</span></p>
@@ -140,23 +139,27 @@
                         industries contribute to economic growth throughout the region. Output from key industries is
                         essential to the successful operation of many other industries.</p>
                     <p class="filternoteKI"><em>Click on a bar to filter this page by a key industry.</em></p>
-                    <button class="overviewreset">Clear <span class="overviewfiltertype">&nbsp;</span>Filter</button>
+                    <button class="overviewreset">Clear&nbsp;<span
+                            class="overviewfiltertype">&nbsp;</span>&nbsp;Filter</button>
                     <div class="row">
                         <div id="keyindchart"></div>
                         <div id="keyindgrid" style="display:none;"></div>
                     </div>
                     <hr>
                 </div>
-                <p class="text-center"><small>Source: <span class="srcyr">&nbsp;</span> MAG Employer Database, business
-                        locations with 5+ employees, all jobs 10+ rounded to nearest 10</small></p>
+                <p class="text-center"><small>Source: All data on this page from the <span class="srcyr">&nbsp;</span>
+                        Arizona COG/MPO Employer Database and only include business
+                        locations with 5+ employees.<br>Note: Jobs 10+ rounded to nearest 10.</small></p>
             </div>
             <div class="section-wrapper text-center">
                 <button class="FDIExcelExport exportall"><i style="color:#2baab1;" class="fas fa-file-excel fa-1.5x"
-                        title="Download data"></i> &nbsp;Download
-                    Data</button><button class="topbutton fdireset">Clear <span
-                        class="fdifiltertype">&nbsp;</span>Filter</button>
-                <p><small>This page can be filtered by parent country (by clicking on a bar or axis label), industry
-                        cluster, or key industry.<br><em>Note: Only <u>one filter category</u> can be applied at a time.
+                        title="Download data">&nbsp;</i> &nbsp;Download
+                    Data</button><button class="topbutton fdireset">Clear&nbsp;<span
+                        class="fdifiltertype">&nbsp;</span>&nbsp;Filter</button>
+                <p><small>This page can be filtered by parent country, industry
+                        cluster, or key industry. Click on a bar chart
+                        below to activate a filter.<br><em>Note: Only <u>one filter category</u> can be applied at a
+                            time.
                             Click on "Clear Filter" to reset the page and select a different category.</em></small></p>
                 <h2 class="nospaceunder"><strong>Foreign-Owned Businesses in <span class="addthe">&nbsp;</span><span
                             class="selectedgeographyFDI">&nbsp;</span></strong></h2>
@@ -164,19 +167,19 @@
                 <h4 class="nomarg"><strong><span class="filteredcategoryFDI filtercolor">&nbsp;</span></strong></h4>
                 <div class="totalfdisection">
                     <div class="fdicountriesnumber">
-                        <h2 class="nomarg1"><i style="color:#2baab1;" class="fas fa-globe fa-1.5x"></i>
+                        <h2 class="nomarg1"><i style="color:#2baab1;" class="fas fa-globe fa-1.5x">&nbsp;</i>
                             <strong><span id="totalFDICountries">&nbsp;</span></strong></h2>
                         <span class="totaltext">Parent Countries<a href="#note" style="color:#2baab1;">*</a></span>
                     </div>
                     <div class="row text-center">
                         <div class="col-xs-2"></div>
                         <div class="col-xs-4">
-                            <h2 class="nomarg1"><i style="color:#2baab1;" class="fas fa-city fa-1.5x"></i>
+                            <h2 class="nomarg1"><i style="color:#2baab1;" class="fas fa-city fa-1.5x">&nbsp;</i>
                                 <strong><span id="totalbusinessesfdi">&nbsp;</span></strong></h2>
                             <span class="totaltext">Employers</span>
                         </div>
                         <div class="col-xs-4">
-                            <h2 class="nomarg1"><i style="color:#2baab1;" class="fas fa-users fa-1.5x"></i>
+                            <h2 class="nomarg1"><i style="color:#2baab1;" class="fas fa-users fa-1.5x">&nbsp;</i>
                                 <strong><span id="totaljobsfdi">&nbsp;</span></strong></h2>
                             <span class="totaltext">Jobs</span>
                         </div>
@@ -193,7 +196,7 @@
                         <h4 class="nospaceunder"><strong><span id="fdicharttitle">&nbsp;</span><a href="#note"
                                     style="color:#2baab1;">*</a></strong>
                             <span class="dlicon fdicountriesExcelExport"><i style="color:#2baab1;"
-                                    class="fas fa-file-excel fa-1.5x" title="Download data"></i></span>
+                                    class="fas fa-file-excel fa-1.5x" title="Download data">&nbsp;</i></span>
                         </h4>
                         <p class="nospaceunder"><strong><span
                                     class="filteredcategoryFDI filtercolor">&nbsp;</span></strong></p><em>by total
@@ -206,7 +209,7 @@
                             <h4 class="nospaceunder"><strong>Top 10 Foreign-Owned<span
                                         class="filteredsimplefdi filtercolor">&nbsp;</span>Employers</strong>
                                 <span class="dlicon fdiEmployersExcelExport"><i style="color:#2baab1;"
-                                        class="fas fa-file-excel fa-1.5x" title="Download data"></i></span>
+                                        class="fas fa-file-excel fa-1.5x" title="Download data">&nbsp;</i></span>
                                 <br></h4>
                             <p class="nomarg"><strong><span class="FDIcountry">&nbsp;</span></strong></p>
                             <p class="nospaceabove"><em>by total
@@ -220,7 +223,7 @@
                             <h4 class="nospaceunder"><strong>Top 5<span
                                         class="filteredsimplefdi filtercolor">&nbsp;</span>Parent Companies</strong>
                                 <span class="dlicon fdiParentExcelExport"><i style="color:#2baab1;"
-                                        class="fas fa-file-excel fa-1.5x" title="Download data"></i></span>
+                                        class="fas fa-file-excel fa-1.5x" title="Download data">&nbsp;</i></span>
                                 <br></h4>
                             <p class="nomarg"><strong><span class="FDIcountry">&nbsp;</span></strong></p>
                             <p class="nospaceabove"><em>by total
@@ -231,10 +234,10 @@
                 </div>
                 <hr>
                 <div class="fdiclustersection">
-                    <button class="fdireset">Clear <span class="fdifiltertype">&nbsp;</span>Filter</button>
+                    <button class="fdireset">Clear&nbsp;<span class="fdifiltertype">&nbsp;</span>&nbsp;Filter</button>
                     <h4 class="nospaceunder"><strong>Industry Clusters</strong>
                         <span class="dlicon fdiclusterExcelExport"><i style="color:#2baab1;"
-                                class="fas fa-file-excel fa-1.5x" title="Download data"></i></span>
+                                class="fas fa-file-excel fa-1.5x" title="Download data">&nbsp;</i></span>
                     </h4>
                     <p class="nospaceabove"><strong><span class="filteredcategoryFDI filtercolor">
                                 &nbsp;</span> <span class="FDIcountry">
@@ -246,11 +249,11 @@
                     <hr>
                 </div>
                 <div class="fdikeyindsection">
-                    <button class="fdireset">Clear <span class="fdifiltertype">&nbsp;</span>Filter</button>
+                    <button class="fdireset">Clear&nbsp;<span class="fdifiltertype">&nbsp;</span>&nbsp;Filter</button>
 
                     <h4 class="nospaceunder"><strong>Key Industries</strong>
                         <span class="dlicon fdikeyindExcelExport"><i style="color:#2baab1;"
-                                class="fas fa-file-excel fa-1.5x" title="Download data"></i></span>
+                                class="fas fa-file-excel fa-1.5x" title="Download data">&nbsp;</i></span>
                     </h4>
                     <p class="nospaceabove"><strong><span class="filteredcategoryFDI filtercolor">
                                 &nbsp;</span> <span class="FDIcountry">
@@ -264,10 +267,12 @@
                     <div id="keyindgridfdi" style="display:none;"></div>
                     <hr>
                 </div>
-                <p class="text-center spaceabove"><small><a name="note"></a>* Note: "Parent Country" refers to
+                <p class="text-center spaceabove"><small><a name="note"></a>*"Parent Country" refers to
                         the origin country of the
-                        foreign-owned employer's parent company.<br>Source: <span class="fdisrcyr">&nbsp;</span> MAG
-                        Employer Database, all jobs 10+ rounded to nearest 10</small></p>
+                        foreign-owned employer's parent company.<br>Source: All data on this page from the <span
+                            class="fdisrcyr">&nbsp;</span> Arizona
+                        COG/MPO
+                        Employer Database.<br> Note: Jobs 10+ rounded to nearest 10.</small></p>
             </div>
             <!-- <div class="section-wrapper">
                 <button class="text-left k-button" id="expand">Expand All Countries</button>
