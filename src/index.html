@@ -19,10 +19,10 @@
         integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
     <!-- JS -->
-    <script src="http://kendo.cdn.telerik.com/2019.2.619/js/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2019.2.619/js/jszip.min.js"></script>
     <!--jszip required for excel export-->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="http://kendo.cdn.telerik.com/2019.2.619/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2019.2.619/js/kendo.all.min.js"></script>
     <!-- Esri Rest JS https://esri.github.io/arcgis-rest-js/api/ -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es5%2Cfetch%2CPromise"></script>
     <script src="https://unpkg.com/@esri/arcgis-rest-request@2.0.3/dist/umd/request.umd.js"></script>
@@ -46,9 +46,9 @@
             </ul>
 
             <div class="section-wrapper text-center">
-                <button class="overviewExcelExport exportall"><i style="color:#2baab1;"
+                <button class="overviewExcelExport exportall" type="button"><i style="color:#2baab1;"
                         class="fas fa-file-excel fa-1.5x" title="Download data">&nbsp;</i> &nbsp;Download
-                    Data</button><button class="topbutton overviewreset">Clear&nbsp;<span
+                    Data</button><button class="topbutton overviewreset" type="button">Clear&nbsp;<span
                         class="overviewfiltertype">&nbsp;</span>&nbsp;Filter</button>
                 <p><small>This page can be filtered by either industry cluster or key industry. Click on a bar chart
                         below to activate a filter.<br><em>Note: Only <u>one filter category</u> can be applied at a
@@ -90,7 +90,9 @@
                             </h4>
                             <p class="nospaceabove"><em>by total jobs</em></p>
                         </div>
-                        <div id="top20grid"></div>
+                        <div id="top20grid">
+                            <p style="display:none;">Top 20 Employers Grid</p>
+                        </div>
                     </div>
                     <div class="col-md-4 top20sharehide top20sharesection text-left">
                         <span class="emphasize nomarg top20percent">&nbsp;</span><span class="percentstyle">%</span>
@@ -119,7 +121,7 @@
                     <p><span class="filteredKI">&nbsp;</span></p>
                     <!-- <span class="filteredCluster">&nbsp;</span> -->
                     <p class="filternoteCluster"><em>Click on a bar to filter this page by an industry cluster.</em></p>
-                    <button class="overviewreset">Clear&nbsp;<span
+                    <button class="overviewreset" type="button">Clear&nbsp;<span
                             class="overviewfiltertype">&nbsp;</span>&nbsp;Filter</button>
                     <div class="row">
                         <div id="clusterchart"></div>
@@ -139,7 +141,7 @@
                         industries contribute to economic growth throughout the region. Output from key industries is
                         essential to the successful operation of many other industries.</p>
                     <p class="filternoteKI"><em>Click on a bar to filter this page by a key industry.</em></p>
-                    <button class="overviewreset">Clear&nbsp;<span
+                    <button class="overviewreset" type="button">Clear&nbsp;<span
                             class="overviewfiltertype">&nbsp;</span>&nbsp;Filter</button>
                     <div class="row">
                         <div id="keyindchart"></div>
@@ -152,9 +154,9 @@
                         locations with 5+ employees.<br>Note: Jobs 10+ rounded to nearest 10.</small></p>
             </div>
             <div class="section-wrapper text-center">
-                <button class="FDIExcelExport exportall"><i style="color:#2baab1;" class="fas fa-file-excel fa-1.5x"
-                        title="Download data">&nbsp;</i> &nbsp;Download
-                    Data</button><button class="topbutton fdireset">Clear&nbsp;<span
+                <button class="FDIExcelExport exportall" type="button"><i style="color:#2baab1;"
+                        class="fas fa-file-excel fa-1.5x" title="Download data">&nbsp;</i> &nbsp;Download
+                    Data</button><button class="topbutton fdireset" type="button">Clear&nbsp;<span
                         class="fdifiltertype">&nbsp;</span>&nbsp;Filter</button>
                 <p><small>This page can be filtered by parent country, industry
                         cluster, or key industry. Click on a bar chart
@@ -216,7 +218,9 @@
                                     jobs</em></p>
 
                             <div style="margin-left: 5%; margin-right: 5%; margin-bottom:10px; font-size: 13px;"
-                                id="fdiGridshow"></div>
+                                id="fdiGridshow">
+                                <p style="display:none;">Top FDI Employers Grid</p>
+                            </div>
                             <div id="fdiGrid" style="display:none;"></div>
                         </div>
                         <div class="row">
@@ -228,13 +232,16 @@
                             <p class="nomarg"><strong><span class="FDIcountry">&nbsp;</span></strong></p>
                             <p class="nospaceabove"><em>by total
                                     jobs</em></p>
-                            <div style="margin-left: 5%; margin-right: 5%; font-size: 13px;" id="fdiparentGrid"></div>
+                            <div style="margin-left: 5%; margin-right: 5%; font-size: 13px;" id="fdiparentGrid">
+                                <p style="display:none;">Top Parent Companies Grid</p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <hr>
                 <div class="fdiclustersection">
-                    <button class="fdireset">Clear&nbsp;<span class="fdifiltertype">&nbsp;</span>&nbsp;Filter</button>
+                    <button class="fdireset" type="button">Clear&nbsp;<span
+                            class="fdifiltertype">&nbsp;</span>&nbsp;Filter</button>
                     <h4 class="nospaceunder"><strong>Industry Clusters</strong>
                         <span class="dlicon fdiclusterExcelExport"><i style="color:#2baab1;"
                                 class="fas fa-file-excel fa-1.5x" title="Download data">&nbsp;</i></span>
@@ -249,7 +256,8 @@
                     <hr>
                 </div>
                 <div class="fdikeyindsection">
-                    <button class="fdireset">Clear&nbsp;<span class="fdifiltertype">&nbsp;</span>&nbsp;Filter</button>
+                    <button class="fdireset" type="button">Clear&nbsp;<span
+                            class="fdifiltertype">&nbsp;</span>&nbsp;Filter</button>
 
                     <h4 class="nospaceunder"><strong>Key Industries</strong>
                         <span class="dlicon fdikeyindExcelExport"><i style="color:#2baab1;"

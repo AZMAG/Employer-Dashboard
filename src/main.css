@@ -279,8 +279,8 @@ div.titlebox {
 
 .dlicon {
     padding: 0;
-    border: none;
-    background: none;
+    border: none !important;
+    background: none !important;
 }
 
 .top20shareline {

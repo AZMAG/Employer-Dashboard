@@ -2517,7 +2517,10 @@ $(document).ready(function () {
     }
     // $(".FDIExcelExport").on('click', exportFDITab);
     $(".FDIExcelExport").kendoButton({
-        click: exportFDITab
+        click: function (e) {
+            exportFDITab();
+            e.preventDefault();
+        }
     })
 
     var promises = [$.Deferred(), $.Deferred(), $.Deferred(), $.Deferred()];
@@ -2611,7 +2614,10 @@ $(document).ready(function () {
     }
     // $(".overviewExcelExport").on('click', exportOverviewTab);
     $(".overviewExcelExport").kendoButton({
-        click: exportOverviewTab
+        click: function (e) {
+            exportOverviewTab();
+            e.preventDefault();
+        }
     })
 
     var promise = [$.Deferred()];
