@@ -41,6 +41,7 @@ body {
 @media screen and (min-width: 1205px) {
     .topbutton {
         position: absolute !important;
+        display: inline;
         right: 20px;
     }
 }
@@ -150,11 +151,11 @@ div.k-tabstrip:focus {
 }
 
 .overviewreset {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .fdireset {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 @media screen and (min-width: 1205px) {
@@ -226,6 +227,7 @@ div.titlebox {
 
 .topbutton {
     position: relative;
+    display: inline;
 }
 
 .emphasize {

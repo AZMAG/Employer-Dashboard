@@ -566,7 +566,7 @@ $(document).ready(function () {
                         checkCountriesFilter = null;
                         toggleClickfdi = 3;
                         $(".fdireset").show();
-                        $(".fdifiltertype").html("Parent Country ")
+                        $(".fdifiltertype").html("Parent Country")
 
                         var chart = $("#fdiChart").data("kendoChart");
                         for (i = 0; i < chart.options.series[0].data.length; i++) {
@@ -604,7 +604,7 @@ $(document).ready(function () {
                         checkCountriesFilter = null;
                         toggleClickfdi = 3;
                         $(".fdireset").show();
-                        $(".fdifiltertype").html("Parent Country ")
+                        $(".fdifiltertype").html("Parent Country")
 
                         var chart = $("#fdiChart").data("kendoChart");
                         for (i = 0; i < chart.options.series[0].data.length; i++) {
@@ -1148,7 +1148,7 @@ $(document).ready(function () {
             if (toggleClickfdi == 1 || toggleClickfdi == 2) {
                 fdifilterclicked = 1;
                 //filter calculate totals - add cluster filter
-                $(".fdifiltertype").html("Cluster ")
+                $(".fdifiltertype").html("Cluster")
                 toggleClickfdi = 2;
                 var selectedcluster = e.category;
                 var addand = " AND ";
@@ -1434,7 +1434,7 @@ $(document).ready(function () {
 
                         fdifilterclicked = 2;
                         //filter calculate totals - add cluster filter
-                        $(".fdifiltertype").html("Key Industry ")
+                        $(".fdifiltertype").html("Key Industry")
                         toggleClickfdi = 4;
                         var selectedKI = e.dataItem.field;
                         var selectedKIname = e.dataItem.name;
@@ -2048,7 +2048,7 @@ $(document).ready(function () {
                     if (toggleClick == 1 || toggleClick == 3) {
                         filterclicked = 2;
                         $(".filternoteCluster").hide();
-                        $(".overviewfiltertype").html("Key Industry ")
+                        $(".overviewfiltertype").html("Key Industry")
                         toggleClick = 3;
                         filterquery = overviewquery;
                         $("#keyindchart").data("kendoChart").refresh();
@@ -2182,7 +2182,7 @@ $(document).ready(function () {
                     if (toggleClick == 1 || toggleClick == 2) {
                         filterclicked = 1;
                         $(".filternoteKI").hide();
-                        $(".overviewfiltertype").html("Cluster ")
+                        $(".overviewfiltertype").html("Cluster")
                         //filter calculate totals - add cluster filter
                         toggleClick = 2;
                         var selectedcluster = e.category;
